@@ -1,0 +1,178 @@
+
+<mat-horizontal-stepper>
+    <mat-step label="Information personnel">
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label> Mettez votre photo ici </ngx-dropzone-label>
+                <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove($event)">
+                    <ngx-dropzone-label><img [src]="imageUrl" alt="avatar"></ngx-dropzone-label>
+                </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <!-- <img [src]="imageUrl2" alt="" style="width: 250px; height: 200px;"> -->
+        <!-- <input type="file" name="avatar" id="avatar" (change)="handleInput($event.target.files)"> -->
+       
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> Prénom </mat-label>
+                <input matInput required>
+            </mat-form-field>      
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> N° CIN </mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> N° Téléphone </mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> E-mail </mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> Adresse </mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label> Sexe </mat-label>
+                <mat-select>
+                    <mat-option value="masculin">Masculin</mat-option>
+                    <mat-option value="feminin">Féminin</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label> Date de naissance  </mat-label>
+                <input matInput [matDatepicker]="myPicker" >
+                <mat-datepicker-toggle  [for]="myPicker" matSuffix ></mat-datepicker-toggle>
+                <mat-datepicker #myPicker></mat-datepicker>
+            </mat-form-field>
+            <span> à </span>
+            <mat-form-field>
+                <mat-label> Lieu de naissance </mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+        <div>
+            <p>Situation matrimoniale :</p>
+           <mat-radio-group>
+               <mat-radio-button value="celibataire">Célibataire</mat-radio-button>
+               <mat-radio-button value="marie">Marié</mat-radio-button>
+           </mat-radio-group>
+        </div>
+
+        <!-- information concerant les parents-->
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Père </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+            <div>
+                <p>Statut père:</p>
+               <mat-radio-group>
+                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
+                   <mat-radio-button value="marie">Retrait</mat-radio-button>
+                   <mat-radio-button value="marie">Décédée</mat-radio-button>
+               </mat-radio-group>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Profession père: </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+            <!-- Mère -->
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Mère </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+            <div>
+                <p>Statut mère:</p>
+               <mat-radio-group>
+                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
+                   <mat-radio-button value="marie">Retrait</mat-radio-button>
+                   <mat-radio-button value="marie">Décédée</mat-radio-button>
+               </mat-radio-group>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Profession mère: </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+            <!-- Tuteur -->
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Tuteur </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+            <div>
+                <p>Statut tuteur:</p>
+               <mat-radio-group>
+                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
+                   <mat-radio-button value="marie">Retrait</mat-radio-button>
+                   <mat-radio-button value="marie">Décédée</mat-radio-button>
+               </mat-radio-group>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label> Profession tuteur: </mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+
+            <!-- Adresse des parents  -->
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Adresse des parents ou des tuteurs</mat-label>
+                    <input matInput >
+                </mat-form-field>
+            </div>
+    </mat-step>
+    <mat-step label="Information sur le diplome de BACC" >
+        <P>Info du bacc ici</P>
+        <!-- Num bordeaux, date , montant -->
+        <div>
+            <mat-form-field>
+                <mat-label> Série </mat-label>
+                <mat-select>
+                    <mat-option value="C">C</mat-option>
+                    <mat-option value="D">D</mat-option>
+                    <mat-option value="Technique">Téchnique</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Mention</mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Année</mat-label>
+                <input matInput >
+            </mat-form-field>
+        </div>
+        
+
+    </mat-step>
+    <mat-step label="Info sur le Bodereau">
+        <p>Info sur le bordeaux ici</p>
+    </mat-step>
+</mat-horizontal-stepper>
