@@ -26,8 +26,8 @@ export class InscriptionComponent {
   reader.readAsDataURL(this.uploadeFilesFromView[this.uploadeFilesFromView.length - 1]);
 }
 
-  // onRemove(event){
-  //   console.log(event);
-  //   this.files.splice(this.files.indexOf(event), 1);
-  // }
+  onRemove(event){
+    console.log(event);
+    this.uploadeFilesFromView.splice(this.uploadeFilesFromView.indexOf(event), 1);
+  }
 }
