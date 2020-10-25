@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-inscription',
@@ -6,28 +8,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./inscription.component.css'],
 })
 export class InscriptionComponent {
-  title = 'inscription works !';
-  uploadeFilesFromView: File[] = [];
-  
-  imageUrl: String ='/assets/images/camera.png';
+  defaultAvatar: String ='/assets/images/Camera2.png';
+  defaultBordereau: String = '/assets/images/Bill2.png';
+  avatarImg: File[] = [];
+  bordereauImg: File[]=[];
 
   constructor() {} 
- 
 
   onSelect(event){
-    // console.log(event);
-    this.uploadeFilesFromView.push(...event.addedFiles);
-    // console.log(this.uploadeFilesFromView[0]);
-    // console.log(...event.addedFiles);
+    this.avatarImg.push(...event.addedFiles);
     const reader = new FileReader();
     reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
-  }
-  reader.readAsDataURL(this.uploadeFilesFromView[this.uploadeFilesFromView.length - 1]);
+      this.defaultAvatar = event.target.result;
+      }
+  reader.readAsDataURL(this.avatarImg[this.avatarImg.length - 1]);
 }
+
+onSelectBordereau(event){
+  this.bordereauImg.push(...event.addedFiles);
+  const reader = new FileReader();
+  reader.onload = (event: any) => {
+    this.defaultBordereau = event.target.result;
+    }
+  reader.readAsDataURL(this.bordereauImg[this.bordereauImg.length - 1]);
+  }
 
   onRemove(event){
     console.log(event);
-    this.uploadeFilesFromView.splice(this.uploadeFilesFromView.indexOf(event), 1);
+    this.avatarImg.splice(this.avatarImg.indexOf(event), 1);
   }
 }

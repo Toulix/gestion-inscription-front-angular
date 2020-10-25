@@ -1,3 +1,87 @@
+.inscription_container {
+  display: flex;
+  justify-content: center;
+}
+mat-horizontal-stepper {
+  width: 65%;
+}
+
 ngx-dropzone {
-  width: 300px;
+  width: 240px;
+  height: 180px;
+}
+
+.drop_zone_avatar {
+  display: flex;
+  justify-content: center;
+}
+.student_info_container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.info_bordereau,
+.info_bacc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_bacc_txt,
+.info_bordereau_txt {
+  text-align: center;
+}
+
+.avatar_info_txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bordereau_drope_zone {
+  width: 240px;
+  height: 180px;
+  background-color: #e8e7e7;
+}
+.radio_matrimoniale {
+  display: flex;
+  justify-content: space-between;
+}
+mat-form-field {
+  width: 200px;
+}
+
+.card_etudiant {
+  width: 650px;
+  height: 820px;
+}
+.card_bacc {
+  width: 280px;
+  height: 330px;
+}
+.card_bordereau {
+  width: 400px;
+}
+
+
+.card_bacc_container,
+.card_bordereau_container,
+.imag_info_student_wrapper  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.btn_annuler,
+.btn_suivant,
+.btn_precedent {
+  background-color:  #42a5f5;
+  color: white;
+}
+
+.btn_suivant_etudiant {
+  margin-bottom: -100px;
 }

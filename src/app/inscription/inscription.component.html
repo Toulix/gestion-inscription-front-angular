@@ -1,178 +1,309 @@
-
+<div class="inscription_container">
 <mat-horizontal-stepper>
-    <mat-step label="Information personnel">
-        <ngx-dropzone (change)="onSelect($event)">
-            <ngx-dropzone-label> Mettez votre photo ici </ngx-dropzone-label>
-                <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove($event)">
-                    <ngx-dropzone-label><img [src]="imageUrl" alt="avatar"></ngx-dropzone-label>
-                </ngx-dropzone-preview>
-        </ngx-dropzone>
-        <!-- <img [src]="imageUrl2" alt="" style="width: 250px; height: 200px;"> -->
-        <!-- <input type="file" name="avatar" id="avatar" (change)="handleInput($event.target.files)"> -->
-       
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label> Prénom </mat-label>
-                <input matInput required>
-            </mat-form-field>      
-        </div>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label> N° CIN </mat-label>
-                <input matInput>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label> N° Téléphone </mat-label>
-                <input matInput >
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label> E-mail </mat-label>
-                <input matInput >
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label> Adresse </mat-label>
-                <input matInput >
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field>
-                <mat-label> Sexe </mat-label>
-                <mat-select>
-                    <mat-option value="masculin">Masculin</mat-option>
-                    <mat-option value="feminin">Féminin</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field>
-                <mat-label> Date de naissance  </mat-label>
-                <input matInput [matDatepicker]="myPicker" >
-                <mat-datepicker-toggle  [for]="myPicker" matSuffix ></mat-datepicker-toggle>
-                <mat-datepicker #myPicker></mat-datepicker>
-            </mat-form-field>
-            <span> à </span>
-            <mat-form-field>
-                <mat-label> Lieu de naissance </mat-label>
-                <input matInput >
-            </mat-form-field>
-        </div>
-        <div>
-            <p>Situation matrimoniale :</p>
-           <mat-radio-group>
-               <mat-radio-button value="celibataire">Célibataire</mat-radio-button>
-               <mat-radio-button value="marie">Marié</mat-radio-button>
-           </mat-radio-group>
-        </div>
-
-        <!-- information concerant les parents-->
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Père </mat-label>
-                    <input matInput >
-                </mat-form-field>
+    <mat-step  label="Information personnel">
+        <p class="mat-body-1" class="avatar_info_txt" > Déposez votre photo ici !
+            <mat-icon aria-hidden="false">arrow_downward</mat-icon>
+        </p>
+        <div class="imag_info_student_wrapper">
+            <!-- image drop zone -->
+            <div class="drop_zone_avatar">
+            
+            <ngx-dropzone  (change)="onSelect($event)">
+                <ngx-dropzone-label> Mettez votre photo ici </ngx-dropzone-label>
+                    <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove($event)">
+                        <ngx-dropzone-label><img [src]="defaultAvatar" alt="avatar"></ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+            </ngx-dropzone>
             </div>
-            <div>
-                <p>Statut père:</p>
-               <mat-radio-group>
-                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
-                   <mat-radio-button value="marie">Retrait</mat-radio-button>
-                   <mat-radio-button value="marie">Décédée</mat-radio-button>
-               </mat-radio-group>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Profession père: </mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-            <!-- Mère -->
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Mère </mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-            <div>
-                <p>Statut mère:</p>
-               <mat-radio-group>
-                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
-                   <mat-radio-button value="marie">Retrait</mat-radio-button>
-                   <mat-radio-button value="marie">Décédée</mat-radio-button>
-               </mat-radio-group>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Profession mère: </mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-            <!-- Tuteur -->
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Tuteur </mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-            <div>
-                <p>Statut tuteur:</p>
-               <mat-radio-group>
-                   <mat-radio-button value="celibataire">Vivant</mat-radio-button>
-                   <mat-radio-button value="marie">Retrait</mat-radio-button>
-                   <mat-radio-button value="marie">Décédée</mat-radio-button>
-               </mat-radio-group>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label> Profession tuteur: </mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-
-            <!-- Adresse des parents  -->
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Adresse des parents ou des tuteurs</mat-label>
-                    <input matInput >
-                </mat-form-field>
-            </div>
-    </mat-step>
-    <mat-step label="Information sur le diplome de BACC" >
-        <P>Info du bacc ici</P>
-        <!-- Num bordeaux, date , montant -->
-        <div>
-            <mat-form-field>
-                <mat-label> Série </mat-label>
-                <mat-select>
-                    <mat-option value="C">C</mat-option>
-                    <mat-option value="D">D</mat-option>
-                    <mat-option value="Technique">Téchnique</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Mention</mat-label>
-                <input matInput >
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Année</mat-label>
-                <input matInput >
-            </mat-form-field>
+              <mat-card class="card_etudiant">
+                <mat-card-content > 
+                    <div class="student_info_container">
+                        <!-- information concernant l'etudiant lui même-->
+                        <div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Nom </mat-label>
+                                    <input matInput required>
+                                </mat-form-field>      
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Prénom </mat-label>
+                                    <input matInput required>
+                                </mat-form-field>      
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> N° CIN </mat-label>
+                                    <input matInput>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> N° Téléphone </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> E-mail </mat-label>
+                                    <input matInput type="email" required>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Adresse </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+            
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Sexe </mat-label>
+                                    <mat-select>
+                                        <mat-option value="F">Masculin</mat-option>
+                                        <mat-option value="F">Féminin</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+            
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Date de naissance  </mat-label>
+                                    <input matInput [matDatepicker]="myPicker" >
+                                    <mat-datepicker-toggle  [for]="myPicker" matSuffix ></mat-datepicker-toggle>
+                                    <mat-datepicker #myPicker></mat-datepicker>
+                                </mat-form-field>
+                            </div> 
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Lieu de naissance </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <p>Situation matrimoniale :</p>
+                            <mat-radio-group class="radio_matrimoniale">
+                                <mat-radio-button value="celibataire">Célibataire</mat-radio-button>
+                                <mat-radio-button value="marie">Marié</mat-radio-button>
+                            </mat-radio-group>
+                            </div>
+                        </div>
+                        <!-- information concerant les parents-->
+                        <div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Père </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <p>Statut père:</p>
+                                    <mat-button-toggle-group>
+                                            <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
+                                            <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
+                                            <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
+                                    </mat-button-toggle-group>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Profession père: </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                        <!-- Mère -->
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Mère </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <p>Statut mère:</p>
+                                <mat-button-toggle-group>
+                                    <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
+                                    <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
+                                    <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
+                                </mat-button-toggle-group>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Profession mère: </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                        <!-- Tuteur -->
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Tuteur </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <p>Statut tuteur:</p>
+                                <mat-button-toggle-group>
+                                    <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
+                                    <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
+                                    <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
+                                </mat-button-toggle-group>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label> Profession tuteur: </mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                        <!-- Adresse des parents  -->
+                            <div>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Adresse des parents ou des tuteurs</mat-label>
+                                    <input matInput >
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions align="center" class="btn_suivant_etudiant"> 
+                    <button mat-button  class="btn_suivant" matStepperNext >
+                        Suivant
+                        <mat-icon aria-hidden="false">chevron_right</mat-icon>
+                    </button> 
+                </mat-card-actions>
+            </mat-card>
         </div>
         
-
     </mat-step>
-    <mat-step label="Info sur le Bodereau">
-        <p>Info sur le bordeaux ici</p>
+
+
+    <!----------------------------- 2ème étapes------------------------------------>
+    <mat-step label="Information sur le diplome de BACC" >  
+        
+            <div class="info_bacc" >
+                <div>
+                <p class="info_bacc_txt">Mettez votre information sur le BACC ici</p>
+               
+                <mat-card class="card_bacc">
+                    <mat-card-content>
+                        <div class="card_bacc_container">
+                            <!-- série -->
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Série </mat-label>
+                                    <mat-select>
+                                        <mat-option value="C">C</mat-option>
+                                        <mat-option value="D">D</mat-option>
+                                        <mat-option value="Technique">Téchnique</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- Mention -->
+                            <div>
+                                <mat-form-field appearance="fill">        
+                                    <mat-label> Mention </mat-label>
+                                    <mat-select>
+                                        <mat-option value="P">Passable</mat-option>
+                                        <mat-option value="A">Assez bien</mat-option>
+                                        <mat-option value="B">Bien</mat-option>
+                                        <mat-option value="T">Très bien</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- Année d'obtention -->
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Année  </mat-label>
+                                    <input matInput [matDatepicker]="anneeBaccPicker" >
+                                    <mat-datepicker-toggle  [for]="anneeBaccPicker" matSuffix ></mat-datepicker-toggle>
+                                    <mat-datepicker #anneeBaccPicker startView="multi-year"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Etablissement d'origine</mat-label>
+                                    <input matInput  >
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions align="center">
+                        <button class="btn_precedent" mat-button matStepperPrevious>
+                            <mat-icon aria-hidden="false">chevron_left</mat-icon>
+                            Précédent
+                        </button>
+                        <button class="btn_suivant" mat-button matStepperNext >
+                            Suivant
+                            <mat-icon aria-hidden="false">chevron_right</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+                </div>
+             </div>
+       
+    </mat-step>
+
+
+     <!----------------------------- 3ème étapes------------------------------------>
+    <mat-step label="Info sur le bodereau">
+        <div class="info_bordereau">
+                <div>
+                    <p class="info_bordereau_txt">Information sur le bordeaux ici</p>
+            
+                    <mat-card class="card_bordereau">
+                        <mat-card-content>
+                            
+                            <div class="card_bordereau_container">
+                            <!-- numero bordéreau -->       
+                                    <div>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>N° borderaux</mat-label>
+                                            <input matInput >
+                                        </mat-form-field>
+                                    </div>
+                            <!-- date versement -->
+                                    <div>
+                                        <mat-form-field>
+                                            <mat-label> Date de versement  </mat-label>
+                                            <input matInput [matDatepicker]="myBordereauPicker" >
+                                            <mat-datepicker-toggle  [for]="myBordereauPicker" matSuffix ></mat-datepicker-toggle>
+                                            <mat-datepicker #myBordereauPicker></mat-datepicker>
+                                        </mat-form-field> 
+                                    </div>
+                            <!-- montant -->
+                                    <div>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Montant (en Ariary)</mat-label>
+                                            <input matInput type="number" min="200000">
+                                        </mat-form-field>
+                                    </div>
+                            <!-- bordéreaux drop zone -->
+                                    <span> Déposez le scan de votre bordéreau ici !
+                                    </span>
+                                        <mat-icon aria-hidden="false">arrow_downward</mat-icon>
+                                    <div>
+                                        <ngx-dropzone class="bordereau_drope_zone" (change)="onSelectBordereau($event)">
+                                                <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" >
+                                                    <ngx-dropzone-label>
+                                                        <img [src]="defaultBordereau" alt="avatar">
+                                                    </ngx-dropzone-label>
+                                                </ngx-dropzone-preview>
+                                        </ngx-dropzone>
+                                    </div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions align="center">
+                            <button color="primary" mat-button matStepperPrevious>
+                                <mat-icon aria-hidden="false">chevron_left</mat-icon>
+                                Précédent
+                            </button>
+                            <button color="primary" mat-button >Términer
+                                <mat-icon aria-hidden="false">fast_forward</mat-icon>
+                            </button>
+                            <button color="warn" mat-button>Annuler</button>
+
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+        </div>
     </mat-step>
 </mat-horizontal-stepper>
+</div>

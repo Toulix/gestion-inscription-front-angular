@@ -9,6 +9,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule} from '@angular/material/select';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+
 
 const materialComponents = [
   MatStepperModule,
@@ -19,7 +23,10 @@ const materialComponents = [
   MatRadioModule,
   MatSelectModule,
   NgxDropzoneModule,
-  MatButtonModule
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatIconModule
 ]
 
 @NgModule({
