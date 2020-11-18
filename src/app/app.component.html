@@ -1,3 +1,94 @@
-<!-- <router-outlet></router-outlet> -->
+<div class="navbar-container" >
 
-<app-inscription></app-inscription>
+<mat-toolbar  class="navbar" color="primary" class="mat-elevation-z4">
+  <button *ngIf="authService.isLoggedIn()" (click)="opened=!opened" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon style="color: white;">menu</mat-icon>
+  </button>
+  <span *ngIf="authService.isLoggedIn()" style="color: white;">Gestion inscription et notes</span>
+  
+  <span class="example-spacer "></span>
+
+  <span *ngIf="!authService.isLoggedIn()" class="example-spacer" style="color: white;"> Vous êtes un nouveau étudiant ? <a [routerLink]="['/inscription']" style="color: wheat;">Inscrivez-vous facilement ici !</a> </span>
+  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button> -->
+
+  <button *ngIf="!authService.isLoggedIn()" mat-icon-button class="example-icon favorite-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+      <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/login']" mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        Se connecter
+      </a>
+      <a [routerLink]="['/inscription']" mat-menu-item> 
+        <mat-icon>voicemail</mat-icon>
+        S'inscrire
+      </a>
+  </mat-menu>
+
+  <button *ngIf="authService.isLoggedIn()" mat-button class="example-icon favorite-icon" [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+    <span fxShow fxHide.xs>
+     {{ authService.currentUser.username }}
+    </span>
+  </button>
+  <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+
+    <a mat-menu-item [routerLink]="['/profile', authService.currentUser.id]">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+
+    <a *ngIf="authService.currentUser.roles === 'admin' " mat-menu-item (click)="onCreateProfile()" >
+        <mat-icon>add</mat-icon>
+        <span>Créer utilisateur</span>
+      </a>
+
+    <a mat-menu-item (click)="authService.logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Se déconnecter</span>
+    </a>
+
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="navbar-sidenav-container">
+      <mat-sidenav *ngIf="authService.isLoggedIn()" mode="side" [(opened)]="opened"> 
+        <mat-nav-list>
+            <div class="profile-card">
+                <div class="header">
+                    <h2>Mon Profile</h2>
+                    <h4>exemple@gmail.com</h4>
+                </div>
+                 <img class="image_avatar" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="dog">
+            </div>
+            <mat-divider></mat-divider>
+            <h2 matSubheader> Administration </h2>
+            <a [routerLink]="['/home']" mat-list-item >Acceuil</a>
+            <a [routerLink]="['/inscriptions']" mat-list-item >Inscriptions</a>
+            <a mat-list-item >Notes</a>
+            <a mat-list-item >Reclamations</a>
+            <a mat-list-item >Enseignement</a>
+            <a mat-list-item >Enseignant</a>
+            <a mat-list-item >Etudiants</a>
+            <a mat-list-item >Utilisateurs</a>
+
+        </mat-nav-list>
+      </mat-sidenav>
+      
+        <mat-sidenav-content class="sidenav-content">
+            <p>
+               
+              </p>
+              <div class="router_outlet_wrapper">
+                <router-outlet></router-outlet>
+              </div>
+            
+        </mat-sidenav-content>   
+ </mat-sidenav-container>
+
+
+</div>
+
+

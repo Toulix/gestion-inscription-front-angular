@@ -1,0 +1,29 @@
+export interface Etudiant {
+        //info Etudiant
+        imgAvatar: String,
+        nom: String,
+        prenom: String,
+        cin: String,
+        tel: String,
+        mail: String,
+        adresse: String,
+        sexe: String,
+        dateNaissance: Date,
+        lieuNaissance: String,
+        situationMatrimoniale: String,
+        pere: String,
+        statutPere: String,
+        professionPere: String,
+        mere: String,
+        statutMere: String,
+        professionMere: String,
+        tuteur: String,
+        statusTuteur: String,
+        professionTuteur: String,
+        adresseParentsTuteurs: String,
+        //Info Bacc
+        serie: String,
+        mention: String,
+        anneeObtention: String,
+        origine: String
+}

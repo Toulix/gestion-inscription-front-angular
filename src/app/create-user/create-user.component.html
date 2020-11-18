@@ -1,0 +1,45 @@
+
+<form [formGroup]="createUserFormGroup" class="normal-Form" (ngSubmit)="onCreateUserToApi()">
+    <div class="create_user_title">
+       
+        <mat-card-title> <img [src]="defaultUser" alt="avatar"></mat-card-title>
+        <mat-card-title> Création d'un utilisateur</mat-card-title>
+        <mat-card-subtitle> Veuillez créer un utilisateur avec son roles et mot de passe ! </mat-card-subtitle>
+       <mat-card-subtitle >
+            <p style="font-size: 12px;">
+        (Vous pouvez générer un mot de passe assez facilement) 
+             </p>
+        </mat-card-subtitle>
+    </div>
+   <div>
+    
+        <button style="margin-left: 2.5em;" mat-button color="primary" (click)="generatePassword()"> Génerer un mot de passe </button>
+        
+    </div>
+    <mat-grid-list cols="1" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <input formControlName="username" matInput placeholder="Nom d'utilisateur">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="password" matInput placeholder="Mot de passe">
+                </mat-form-field>
+            </div>
+            <div>
+                <p>Role: </p>
+                <mat-button-toggle-group formControlName="roles">
+                    <mat-button-toggle value="admin">Admin</mat-button-toggle>
+                    <mat-button-toggle value="enseignant">Enseignant</mat-button-toggle>
+                    <mat-button-toggle value="scolarite">Scolarité</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+           
+        </mat-grid-tile>
+        
+    </mat-grid-list>
+    <div class="button_wrapper" >
+        <button class="btn_send_user"  mat-button type="submit" >Envoyer</button>
+    </div>
+   
+</form>

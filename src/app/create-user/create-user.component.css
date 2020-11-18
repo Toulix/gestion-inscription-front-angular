@@ -1,0 +1,29 @@
+.controles-container {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container > * {
+    width: 100%;
+}
+
+.create_user_title  {
+    text-align: center;
+}
+
+.button_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn_send_user {
+     background-color:  #42a5f5;
+     color: white;
+     text-align: center;
+     width: 70%;
+}

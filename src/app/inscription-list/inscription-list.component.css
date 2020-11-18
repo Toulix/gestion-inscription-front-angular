@@ -1,0 +1,61 @@
+.inscription_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1;
+}
+
+
+.example-header-image {
+    background-size: cover;
+  }
+
+
+.single_inscription_info {
+    width: 450px;
+}
+
+.image_avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.inscription_header_info {
+    margin-left: 1.9em;
+    margin-top: 1em;
+}
+
+mat-card-content {
+    display: flex;
+    /* margin-top: 1em; */
+    justify-content: center;
+    align-items: center;
+}
+
+.inscription_etat {
+    color: #4fd77f;
+}
+
+.accepte {
+    background-color: #13cc06;
+}
+
+.refuse {
+    background-color: red;
+}
+
+.attente {
+    background-color: orange;
+}
+.etat_inscription {
+    color: white;
+     width: 70px;
+      margin-top: 1em; 
+      margin-left: 0.7em;
+       padding-left: 15px;
+        border-radius: 10%;
+}

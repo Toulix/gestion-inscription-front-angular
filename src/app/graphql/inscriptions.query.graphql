@@ -1,0 +1,75 @@
+query inscriptionsList {
+  inscriptions {
+    id
+    etudiant {
+      id
+      avatar
+      nom
+      prenom
+      mail
+    }
+    niveau {
+      libelle
+    }
+    parcours {
+      abbreviation
+    }
+    anneeUniversitaire {
+      libelle
+    }
+    bordereau {
+      numBordereau
+      bordereau
+    }
+    etat
+  }
+}
+
+query inscription {
+  inscriptions {
+    id
+    etudiant {
+      id
+      avatar
+      nom
+      prenom
+      mail
+      matricule
+      tel
+      adresse
+      sexe
+      dateNaissance
+      lieuNaissance
+      situationMatrimoniale
+      pere
+      statutPere
+      professionPere
+      mere
+      statutMere
+      professionMere
+      tuteur
+      statusTuteur
+      serie
+      mention
+      anneeObtention
+      origine
+    }
+    niveau {
+      libelle
+    }
+    parcours {
+      abbreviation
+    }
+    bordereau {
+      numBordereau
+      bordereau
+      dateVersement
+      montant
+    }
+    anneeUniversitaire {
+      libelle
+    }
+    etat
+    createdAt
+  }
+}

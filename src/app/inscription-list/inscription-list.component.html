@@ -1,0 +1,54 @@
+<div fxFlex="95%">
+<div class="inscription_wrapper">
+   <div *ngFor="let inscriptionList of inscriptionsList | async">
+ 
+       <mat-card class="single_inscription_info">
+
+            <mat-card-header>
+            <div mat-card-avatar class="example-header-image">
+                <img class="image_avatar" src="http://localhost:3000/images/{{inscriptionList.etudiant.avatar}}" alt="">
+            </div>
+            <div class="inscription_header_info">
+                    <mat-card-title style="color:#42a5f5"> {{ inscriptionList.etudiant.nom }} {{ inscriptionList.etudiant.prenom }}</mat-card-title>
+                    <mat-card-subtitle>{{ inscriptionList.etudiant.mail }}</mat-card-subtitle>
+            </div>
+            <div>
+                
+            </div>
+          </mat-card-header>
+    
+           <mat-card-content>
+              
+               
+               <mat-chip-list aria-label="Fish selection"> 
+                   <mat-chip>
+                    <span> Niveau: {{ inscriptionList.niveau.libelle }} </span>
+                    <span> &nbsp; &nbsp; </span> 
+                   </mat-chip>
+                   <mat-chip>
+                    <span> Parcours: {{ inscriptionList.parcours.abbreviation }} </span>
+                   </mat-chip>
+                   <!-- Ovaina atao tanana -->
+                   
+                  
+                    <p [ngClass]="{'accepte': inscriptionList.etat === 'Accepté',
+                                    'refuse' : inscriptionList.etat === 'Refusé',
+                                    'attente' : inscriptionList.etat === 'En attente'}" 
+                        class="etat_inscription"
+                    >{{ inscriptionList.etat }} 
+                    </p>
+                 
+               
+               </mat-chip-list>
+               
+           </mat-card-content>
+           <!-- <mat-card-actions align="center">
+           
+            <button mat-button>Voir</button>
+           </mat-card-actions> -->
+       </mat-card>
+   </div>
+</div>
+
+</div>
+

@@ -14,6 +14,7 @@ ngx-dropzone {
 .drop_zone_avatar {
   display: flex;
   justify-content: center;
+  margin-left: 150px;
 }
 .student_info_container {
   display: flex;
@@ -74,7 +75,7 @@ mat-form-field {
   align-items: center;
 }
 
-
+.btn_choose_avatar,
 .btn_annuler,
 .btn_suivant,
 .btn_precedent {
@@ -84,4 +85,25 @@ mat-form-field {
 
 .btn_suivant_etudiant {
   margin-bottom: -100px;
+}
+
+.btn_choose_avatar {
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 70px;
+}
+
+.inscription_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.libelle_promotion {
+  margin-left: 700px;
+}
+
+.selected_parcours {
+  margin-top: 15px;
 }

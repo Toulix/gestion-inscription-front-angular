@@ -1,91 +1,132 @@
+<div class="inscription_header">
+        <div class="annee_universitaire_header">
+            <span class="libelle_promotion">Année universitaire: {{ (foundPromotion | async)?.libelle }}</span>
+        </div>
+        <div style="text-decoration: underline; font-weight: bold;"> INSCRIPTION </div>
+
+        <div>
+            <p>Niveau: {{ (foundNiveau | async)?.libelle  }} -- {{ (foundNiveau | async)?.description  }} </p>
+        </div>
+        <p>Parcours: </p>
+        <div>
+            <mat-button-toggle-group multiple="false" #toogleGroup="matButtonToggleGroup" >
+                <mat-button-toggle *ngFor="let parcour of parcours "
+                                [value]="parcour.description"  (click)="onParcoursToggleGroup(parcour._id)">
+                                {{ parcour.abbreviation }}  
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <p class="selected_parcours"> {{ toogleGroup.value }} </p>
+</div>
+
+
+
+
+
 <div class="inscription_container">
-<mat-horizontal-stepper>
-    <mat-step  label="Information personnel">
-        <p class="mat-body-1" class="avatar_info_txt" > Déposez votre photo ici !
+<mat-horizontal-stepper linear #stepper>
+    <mat-step  label="Information personnel" [stepControl]="studentFormGroup">
+        
+        <p class="mat-body-1" class="avatar_info_txt">
+             Déposez votre photo ici !
             <mat-icon aria-hidden="false">arrow_downward</mat-icon>
         </p>
         <div class="imag_info_student_wrapper">
             <!-- image drop zone -->
             <div class="drop_zone_avatar">
-            
-            <ngx-dropzone  (change)="onSelect($event)">
-                <ngx-dropzone-label> Mettez votre photo ici </ngx-dropzone-label>
-                    <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove($event)">
-                        <ngx-dropzone-label><img [src]="defaultAvatar" alt="avatar"></ngx-dropzone-label>
-                    </ngx-dropzone-preview>
-            </ngx-dropzone>
+                <ngx-dropzone  (change)="onSelect($event)" #drop >
+                    <ngx-dropzone-label> Mettez votre photo ici </ngx-dropzone-label>
+                        <ngx-dropzone-preview  ngProjectAs="ngx-dropzone-preview" [removable]="true" (removed)="onRemove($event)">
+                            <ngx-dropzone-label><img [src]="defaultAvatar" alt="avatar">
+                       
+                        </ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                </ngx-dropzone>
+                <button mat-button class="btn_choose_avatar" (click)="drop.showFileSelector()">
+                    <mat-icon aria-hidden="false">file_upload</mat-icon>
+                    Choisir une image</button>
             </div>
+            <mat-error  *ngIf="studentFormGroup.errors">Photo requis !</mat-error>
               <mat-card class="card_etudiant">
-                <mat-card-content > 
+                <form [formGroup]="studentFormGroup" (ngSubmit)="onSubmitInfoEtudiant()">
+                    <mat-card-content > 
                     <div class="student_info_container">
                         <!-- information concernant l'etudiant lui même-->
                         <div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Nom </mat-label>
-                                    <input matInput required>
+                                    <input matInput required formControlName="nom">
+                                    <mat-error  *ngIf="studentFormGroup.get('nom').invalid">Nom requis !</mat-error>
                                 </mat-form-field>      
                             </div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Prénom </mat-label>
-                                    <input matInput required>
+                                    <input matInput required formControlName="prenom">
+                                    <mat-error  *ngIf="studentFormGroup.get('prenom').invalid">Prenom requis !</mat-error>
                                 </mat-form-field>      
                             </div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> N° CIN </mat-label>
-                                    <input matInput>
+                                    <input matInput formControlName="cin">
                                 </mat-form-field>
                             </div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> N° Téléphone </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="tel" 
+                                    placeholder="Ex: 034 10 456 12">
                                 </mat-form-field>
                             </div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> E-mail </mat-label>
-                                    <input matInput type="email" required>
+                                    <input required matInput type="email" formControlName="mail">
+                                    <mat-error  *ngIf="studentFormGroup.get('mail').invalid">Veuillez entrer une adresse email valide</mat-error>
                                 </mat-form-field>
                             </div>
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Adresse </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="adresse">
                                 </mat-form-field>
                             </div>
             
                             <div>
                                 <mat-form-field>
                                     <mat-label> Sexe </mat-label>
-                                    <mat-select>
-                                        <mat-option value="F">Masculin</mat-option>
+                                    <mat-select required formControlName="sexe">
+                                        <mat-option value="M">Masculin</mat-option>
                                         <mat-option value="F">Féminin</mat-option>
                                     </mat-select>
+                                    <mat-error  *ngIf="studentFormGroup.get('sexe').invalid">Sexe requis !</mat-error>
                                 </mat-form-field>
                             </div>
             
                             <div>
                                 <mat-form-field>
                                     <mat-label> Date de naissance  </mat-label>
-                                    <input matInput [matDatepicker]="myPicker" >
+                                    <input required matInput [matDatepicker]="myPicker" formControlName="dateNaissance" >
                                     <mat-datepicker-toggle  [for]="myPicker" matSuffix ></mat-datepicker-toggle>
                                     <mat-datepicker #myPicker></mat-datepicker>
+                                    <mat-error  *ngIf="studentFormGroup.get('dateNaissance').invalid">Date de naissance requis !</mat-error>
                                 </mat-form-field>
                             </div> 
                             <div>
                                 <mat-form-field>
                                     <mat-label> Lieu de naissance </mat-label>
-                                    <input matInput >
+                                    <input required matInput formControlName="lieuNaissance" >
+                                    <mat-error  *ngIf="studentFormGroup.get('lieuNaissance').invalid">Lieu de naissance requis !</mat-error>
                                 </mat-form-field>
                             </div>
                             <div>
                                 <p>Situation matrimoniale :</p>
-                            <mat-radio-group class="radio_matrimoniale">
+                            <mat-radio-group required class="radio_matrimoniale" formControlName="situationMatrimoniale">
                                 <mat-radio-button value="celibataire">Célibataire</mat-radio-button>
                                 <mat-radio-button value="marie">Marié</mat-radio-button>
+                               
                             </mat-radio-group>
                             </div>
                         </div>
@@ -94,12 +135,12 @@
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Père </mat-label>
-                                    <input matInput >
+                                    <input matInput  formControlName="pere">
                                 </mat-form-field>
                             </div>
                             <div>
                                 <p>Statut père:</p>
-                                    <mat-button-toggle-group>
+                                    <mat-button-toggle-group formControlName="statutPere">
                                             <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
                                             <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
                                             <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
@@ -108,19 +149,19 @@
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Profession père: </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="professionPere">
                                 </mat-form-field>
                             </div>
                         <!-- Mère -->
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Mère </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="mere">
                                 </mat-form-field>
                             </div>
                             <div>
                                 <p>Statut mère:</p>
-                                <mat-button-toggle-group>
+                                <mat-button-toggle-group formControlName="statutMere">
                                     <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
                                     <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
                                     <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
@@ -129,113 +170,126 @@
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Profession mère: </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="professionMere">
                                 </mat-form-field>
                             </div>
                         <!-- Tuteur -->
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label> Tuteur </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="tuteur">
                                 </mat-form-field>
                             </div>
                             <div>
                                 <p>Statut tuteur:</p>
-                                <mat-button-toggle-group>
+                                <mat-button-toggle-group formControlName="statusTuteur">
                                     <mat-button-toggle value="Vivant">Vivant</mat-button-toggle>
                                     <mat-button-toggle value="Retrait">Retrait</mat-button-toggle>
                                     <mat-button-toggle value="Decedee">Décedée</mat-button-toggle>
                                 </mat-button-toggle-group>
                             </div>
                             <div>
-                                <mat-form-field appearance="standard">
+                                <mat-form-field appearance="standard" >
                                     <mat-label> Profession tuteur: </mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="professionTuteur" >
                                 </mat-form-field>
                             </div>
                         <!-- Adresse des parents  -->
                             <div>
                                 <mat-form-field appearance="standard">
                                     <mat-label>Adresse des parents ou des tuteurs</mat-label>
-                                    <input matInput >
+                                    <input matInput formControlName="adresseParentsTuteurs" >
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
                 </mat-card-content>
                 <mat-card-actions align="center" class="btn_suivant_etudiant"> 
-                    <button mat-button  class="btn_suivant" matStepperNext >
+                    <button [disabled]="!isAvatarProvided" type="submit" mat-button  class="btn_suivant" matStepperNext
+                    >
                         Suivant
                         <mat-icon aria-hidden="false">chevron_right</mat-icon>
-                    </button> 
+                    </button>
+          
                 </mat-card-actions>
-            </mat-card>
+                
+                </form>
+            </mat-card> netsh wlan start hostednetwork
         </div>
         
     </mat-step>
 
 
     <!----------------------------- 2ème étapes------------------------------------>
-    <mat-step label="Information sur le diplome de BACC" >  
+    <mat-step label="Information sur le diplome de BACC" [stepControl]="infoBaccFormGroup">  
         
             <div class="info_bacc" >
                 <div>
-                <p class="info_bacc_txt">Mettez votre information sur le BACC ici</p>
-               
-                <mat-card class="card_bacc">
-                    <mat-card-content>
-                        <div class="card_bacc_container">
-                            <!-- série -->
-                            <div>
-                                <mat-form-field>
-                                    <mat-label> Série </mat-label>
-                                    <mat-select>
-                                        <mat-option value="C">C</mat-option>
-                                        <mat-option value="D">D</mat-option>
-                                        <mat-option value="Technique">Téchnique</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                    <p class="info_bacc_txt">Mettez votre information sur le BACC ici</p>
+                
+                    <mat-card class="card_bacc">
+                        <form [formGroup]="infoBaccFormGroup" (ngSubmit)="onSubmitInfoBacc()">
+                        <mat-card-content>
+                            <div class="card_bacc_container">
+                                <!-- série -->
+                                <div>
+                                    <mat-form-field>
+                                        <mat-label> Série </mat-label>
+                                        <mat-select formControlName="serie">
+                                            <mat-option value="C">C</mat-option>
+                                            <mat-option value="D">D</mat-option>
+                                            <mat-option value="Technique">Téchnique</mat-option>
+                                        </mat-select>
+                                        <mat-error  *ngIf="infoBaccFormGroup.get('serie').invalid">Svp ! Votre série est requis</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- Mention -->
+                                <div>
+                                    <mat-form-field appearance="fill">        
+                                        <mat-label> Mention </mat-label>
+                                        <mat-select formControlName="mention">
+                                            <mat-option value="P">Passable</mat-option>
+                                            <mat-option value="A">Assez bien</mat-option>
+                                            <mat-option value="B">Bien</mat-option>
+                                            <mat-option value="T">Très bien</mat-option>
+                                        </mat-select>
+                                        <mat-error  *ngIf="infoBaccFormGroup.get('mention').invalid">Mention requis !</mat-error>
+            
+                                    </mat-form-field>
+                                </div>
+                                <!-- Année d'obtention -->
+                                <div>
+                                    <mat-form-field>
+                                        <mat-label> Année  </mat-label>
+                                        <input matInput [matDatepicker]="anneeBaccPicker" formControlName="anneeObtention" >
+                                        <mat-datepicker-toggle  [for]="anneeBaccPicker" matSuffix ></mat-datepicker-toggle>
+                                        <mat-datepicker #anneeBaccPicker startView="multi-year"></mat-datepicker>
+                                        <mat-error  *ngIf="infoBaccFormGroup.get('anneeObtention').invalid">Quand ?</mat-error>
+        
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Etablissement d'origine</mat-label>
+                                        <input matInput formControlName="origine">
+                                        <mat-error  *ngIf="infoBaccFormGroup.get('origine').invalid">Etablissement d'origine requis</mat-error>
+        
+                                    </mat-form-field>
+                                </div>
                             </div>
-                            <!-- Mention -->
-                            <div>
-                                <mat-form-field appearance="fill">        
-                                    <mat-label> Mention </mat-label>
-                                    <mat-select>
-                                        <mat-option value="P">Passable</mat-option>
-                                        <mat-option value="A">Assez bien</mat-option>
-                                        <mat-option value="B">Bien</mat-option>
-                                        <mat-option value="T">Très bien</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <!-- Année d'obtention -->
-                            <div>
-                                <mat-form-field>
-                                    <mat-label> Année  </mat-label>
-                                    <input matInput [matDatepicker]="anneeBaccPicker" >
-                                    <mat-datepicker-toggle  [for]="anneeBaccPicker" matSuffix ></mat-datepicker-toggle>
-                                    <mat-datepicker #anneeBaccPicker startView="multi-year"></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                            <div>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Etablissement d'origine</mat-label>
-                                    <input matInput  >
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions align="center">
-                        <button class="btn_precedent" mat-button matStepperPrevious>
-                            <mat-icon aria-hidden="false">chevron_left</mat-icon>
-                            Précédent
-                        </button>
-                        <button class="btn_suivant" mat-button matStepperNext >
-                            Suivant
-                            <mat-icon aria-hidden="false">chevron_right</mat-icon>
-                        </button>
-                    </mat-card-actions>
-                </mat-card>
+                        </mat-card-content>
+                        <mat-card-actions align="center">
+                            <button class="btn_precedent" mat-button matStepperPrevious>
+                                <mat-icon aria-hidden="false">chevron_left</mat-icon>
+                                Précédent
+                            </button>
+                            <button type="submit" class="btn_suivant" mat-button matStepperNext >
+                                Suivant
+                                <mat-icon aria-hidden="false">chevron_right</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                        </form>
+                    </mat-card>
                 </div>
              </div>
        
@@ -243,11 +297,11 @@
 
 
      <!----------------------------- 3ème étapes------------------------------------>
-    <mat-step label="Info sur le bodereau">
+    <mat-step label="Information sur le bodereau" completed="false">
         <div class="info_bordereau">
                 <div>
                     <p class="info_bordereau_txt">Information sur le bordeaux ici</p>
-            
+                    <form [formGroup]="infoBordereauFormGroup" (ngSubmit)="onSubmitInfoBordereau()">
                     <mat-card class="card_bordereau">
                         <mat-card-content>
                             
@@ -256,23 +310,27 @@
                                     <div>
                                         <mat-form-field appearance="fill">
                                             <mat-label>N° borderaux</mat-label>
-                                            <input matInput >
+                                            <input matInput formControlName="numBordereau">
+                                            <mat-error  *ngIf="infoBordereauFormGroup.get('numBordereau').invalid">Numero du bordereau requis !</mat-error>
                                         </mat-form-field>
                                     </div>
                             <!-- date versement -->
                                     <div>
                                         <mat-form-field>
                                             <mat-label> Date de versement  </mat-label>
-                                            <input matInput [matDatepicker]="myBordereauPicker" >
+                                            <input matInput [matDatepicker]="myBordereauPicker" formControlName="dateVersement">
                                             <mat-datepicker-toggle  [for]="myBordereauPicker" matSuffix ></mat-datepicker-toggle>
                                             <mat-datepicker #myBordereauPicker></mat-datepicker>
-                                        </mat-form-field> 
+                                            <mat-error  *ngIf="infoBordereauFormGroup.get('dateVersement').invalid">Date de versement requis !</mat-error>
+                                        </mat-form-field>
                                     </div>
                             <!-- montant -->
                                     <div>
                                         <mat-form-field appearance="fill">
                                             <mat-label>Montant (en Ariary)</mat-label>
-                                            <input matInput type="number" min="200000">
+                                            <input matInput type="number" min="200000" formControlName="montant">
+                                            <mat-error  *ngIf="infoBordereauFormGroup.get('montant').invalid">Le montant du versement est requis !</mat-error>
+       
                                         </mat-form-field>
                                     </div>
                             <!-- bordéreaux drop zone -->
@@ -295,13 +353,13 @@
                                 <mat-icon aria-hidden="false">chevron_left</mat-icon>
                                 Précédent
                             </button>
-                            <button color="primary" mat-button >Términer
+                            <button type="submit" [disabled]="!isBordereauProvided" color="primary" mat-button  >Términer
                                 <mat-icon aria-hidden="false">fast_forward</mat-icon>
                             </button>
-                            <button color="warn" mat-button>Annuler</button>
-
+                            <button color="warn" mat-button (click)="stepper.reset()">Annuler</button>
                         </mat-card-actions>
                     </mat-card>
+                </form>
                 </div>
         </div>
     </mat-step>

@@ -1,0 +1,237 @@
+
+type Utilisateur {
+  id: ID!
+  username: String!
+  password: String!
+  roles: String!
+  profile: ID
+}
+
+type Parcour {
+  id: ID!
+  abbreviation: String!
+  description: String!
+}
+
+type Niveau {
+  id: ID!
+  libelle: String!
+  description: String!
+}
+
+type Promotion {
+  id: ID!
+  isActive: Boolean!
+  libelle: String!
+  debut: DateTime!
+  fin: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+
+scalar DateTime
+
+type Bordereau {
+  id: ID!
+  bordereau: String!
+  numBordereau: String!
+  dateVersement: DateTime!
+  montant: Float!
+}
+
+type Etudiant {
+  id: ID!
+  matricule: String
+  avatar: String!
+  nom: String!
+  prenom: String!
+  tel: String!
+  mail: String!
+  adresse: String!
+  sexe: String!
+  dateNaissance: DateTime!
+  lieuNaissance: String!
+  situationMatrimoniale: String!
+  pere: String
+  statutPere: String
+  professionPere: String
+  mere: String
+  statutMere: String
+  professionMere: String
+  tuteur: String
+  statusTuteur: String
+  professionTuteur: String
+  adresseParentsTuteurs: String
+  serie: String!
+  mention: String!
+  anneeObtention: String!
+  origine: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Inscription {
+  id: ID!
+  etat: String
+  etudiant: Etudiant!
+  bordereau: Bordereau!
+  anneeUniversitaire: Promotion!
+  niveau: Niveau!
+  parcours: Parcour!
+  date: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Enseignant {
+  id: ID!
+  nom: String
+  prenom: String
+  titre: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Scolarite {
+  id: ID!
+  nom: String
+  prenom: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+  fonction: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Matiere {
+  id: ID!
+  libelle: String
+  abbreviation: String
+}
+
+type Reclamation {
+  id: ID!
+  etudiant: Etudiant!
+  niveau: Niveau!
+  parcours: Parcour!
+  anneeUniversitaire: Promotion!
+  enseignant: Enseignant!
+  matiere: Matiere!
+  motif: String
+  date: DateTime!
+  etat: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Note {
+  id: ID!
+  etudiant: Etudiant!
+  valeur: Float!
+  matiere: Matiere!
+  niveau: Niveau!
+  parcours: Parcour!
+  anneeUniversitaire: Promotion!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Enseignement {
+  id: ID!
+  matiere: Matiere!
+  enseignant: Enseignant!
+  niveau: Niveau!
+  parcours: Parcour!
+  anneeUniversitaire: Promotion!
+  enseignementTheorique: Int
+  enseignementDirige: Int
+  enseignementPratique: Int
+  credit: Float
+  poids: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  users: [Utilisateur!]!
+  me: Utilisateur!
+  inscriptions: [Inscription!]!
+  anneeUniversitaire(id: String!): Promotion!
+  enseignants: [Enseignant!]!
+  scolarites: [Scolarite!]!
+  reclamations: [Reclamation!]!
+  reclamationPerEnseignant: [Reclamation!]!
+  notes: [Note!]!
+  enseignements: [Enseignement!]!
+  matieresParEnseignant(idEnseignant: String!): Enseignement!
+  matieresOfCurrentEnseignant: Enseignement!
+}
+
+type Mutation {
+  singIn(password: String!, username: String!): String!
+  createUser(createUserInput: CreateUserInput!): Utilisateur!
+  addProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  updateInscription(etat: String!, id: String!): Inscription!
+  createDefaultEnseignantProfile: Enseignant!
+  editEnseignantProfile(updateEnseignantInput: UpdateEnseignantInput!, enseignantId: String!): Enseignant!
+  createDefaultScolariteProfile: Scolarite!
+  editScolariteProfile(updateScolariteInput: UpdateScolariteInput!, scolariteId: String!): Scolarite!
+  updateReclamation(reclamationId: ID!, etat: String, note: Float): Reclamation!
+  createReclamation(createReclamationData: CreateReclamationInput!): Reclamation!
+  createNote(CreateNoteInput: CreateNoteInput!): Note!
+  updateNote(valeur: Float!, idNote: String!): Note!
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+  roles: String!
+}
+
+input UpdateEnseignantInput {
+  nom: String
+  prenom: String
+  titre: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+}
+
+input UpdateScolariteInput {
+  nom: String
+  prenom: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+  fonction: String
+}
+
+input CreateReclamationInput {
+  etudiant: ID!
+  niveau: ID!
+  parcours: ID!
+  anneeUniversitaire: ID!
+  enseignant: ID!
+  matiere: ID!
+  motif: ID
+  note: Float
+  etat: Float
+}
+
+input CreateNoteInput {
+  etudiant: ID!
+  valeur: Float!
+  matiere: ID!
+  niveau: ID!
+  parcours: ID!
+  anneeUniversitaire: ID!
+}

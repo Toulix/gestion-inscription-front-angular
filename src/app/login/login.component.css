@@ -1,0 +1,48 @@
+.login_card_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ mat-card {
+    
+    margin: 10em auto;
+    text-align: center;
+  }
+  
+  mat-card-content {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+  }
+
+.connection_title {
+    text-align: center;
+}
+
+form {
+  margin-top: 2em;
+}
+
+/* .btn_login {
+  background-color:  #42a5f5;
+  color: white;
+} */
+.login_icon_wrapper {
+    margin-top: 2em !important;
+}
+
+.login_icon {
+    font-size: 50px;   
+}
+
+.connection_title {
+    margin-top: 1em;
+}
+
+.invalid_login_message {
+  background-color: red;
+  color: white;
+}
