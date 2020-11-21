@@ -1,0 +1,76 @@
+.semestre_one_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3.5em;
+}
+
+.premier_semestre,
+.premmier_semestre_name_container,
+.ueName_container
+{
+   text-align: center !important;
+}
+
+.premier_semestre_name
+{
+    width: 30px;
+    text-align: center;
+}
+
+.ue_name {
+    text-align: center;
+    width: 300px;
+}
+
+
+.et,
+.ed,
+.ep,
+.credit,
+.poids {
+    width: 50px;
+    text-align: center;
+    padding-left: 1em;
+}
+
+
+.libelle,
+.abbreviation {
+    text-align: center;
+    padding-left: 1em;
+}
+
+.libelle {
+    width: 300px;
+}
+
+mat-card {
+    width: 1300px;
+}
+
+.ue_container {
+    border: 1px powderblue solid;
+}
+
+.removeUe {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.btn_add_ue {
+    background-color: #42a5f5;
+    color: white;
+}
+
+.ue_container {
+    position: relative;
+    margin-top: 1.5em;
+}
+
+.matieres_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

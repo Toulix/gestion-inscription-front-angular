@@ -1,4 +1,3 @@
-import { NotifierService } from 'angular-notifier';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router,
-              private notifier: NotifierService) { }
+              ) { }
 
   ngOnInit() {
     this.loginFormGroup = this.fb.group({

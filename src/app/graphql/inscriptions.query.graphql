@@ -22,17 +22,19 @@ query inscriptionsList {
       bordereau
     }
     etat
+    date
   }
 }
 
-query inscription {
-  inscriptions {
+query inscription($id: String!) {
+  inscription(id: $id) {
     id
     etudiant {
       id
       avatar
       nom
       prenom
+      cin
       mail
       matricule
       tel
@@ -70,6 +72,6 @@ query inscription {
       libelle
     }
     etat
-    createdAt
+    date
   }
 }

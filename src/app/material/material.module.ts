@@ -22,8 +22,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips'
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const materialComponents = [
+  MatExpansionModule,
+  MatTooltipModule,
   MatChipsModule,
   MatAutocompleteModule,
   MatGridListModule,

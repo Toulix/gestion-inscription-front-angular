@@ -65,6 +65,7 @@ export interface Etudiant {
   matricule?: Maybe<Scalars['String']>;
   avatar: Scalars['String'];
   nom: Scalars['String'];
+  cin: Scalars['String'];
   prenom: Scalars['String'];
   tel: Scalars['String'];
   mail: Scalars['String'];
@@ -191,6 +192,7 @@ export interface Query {
   users: Array<Utilisateur>;
   me: Utilisateur;
   inscriptions: Array<Inscription>;
+  inscription: Inscription;
   anneeUniversitaire: Promotion;
   enseignants: Array<Enseignant>;
   scolarites: Array<Scolarite>;
@@ -200,6 +202,11 @@ export interface Query {
   enseignements: Array<Enseignement>;
   matieresParEnseignant: Enseignement;
   matieresOfCurrentEnseignant: Enseignement;
+}
+
+
+export interface QueryInscriptionArgs {
+  id: Scalars['String'];
 }
 
 
@@ -340,7 +347,7 @@ export type InscriptionsListQuery = (
   { __typename?: 'Query' }
   & { inscriptions: Array<(
     { __typename?: 'Inscription' }
-    & Pick<Inscription, 'id' | 'etat'>
+    & Pick<Inscription, 'id' | 'etat' | 'date'>
     & { etudiant: (
       { __typename?: 'Etudiant' }
       & Pick<Etudiant, 'id' | 'avatar' | 'nom' | 'prenom' | 'mail'>
@@ -360,17 +367,19 @@ export type InscriptionsListQuery = (
   )> }
 );
 
-export type InscriptionQueryVariables = Exact<{ [key: string]: never; }>;
+export type InscriptionQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
 export type InscriptionQuery = (
   { __typename?: 'Query' }
-  & { inscriptions: Array<(
+  & { inscription: (
     { __typename?: 'Inscription' }
-    & Pick<Inscription, 'id' | 'etat' | 'createdAt'>
+    & Pick<Inscription, 'id' | 'etat' | 'date'>
     & { etudiant: (
       { __typename?: 'Etudiant' }
-      & Pick<Etudiant, 'id' | 'avatar' | 'nom' | 'prenom' | 'mail' | 'matricule' | 'tel' | 'adresse' | 'sexe' | 'dateNaissance' | 'lieuNaissance' | 'situationMatrimoniale' | 'pere' | 'statutPere' | 'professionPere' | 'mere' | 'statutMere' | 'professionMere' | 'tuteur' | 'statusTuteur' | 'serie' | 'mention' | 'anneeObtention' | 'origine'>
+      & Pick<Etudiant, 'id' | 'avatar' | 'nom' | 'prenom' | 'cin' | 'mail' | 'matricule' | 'tel' | 'adresse' | 'sexe' | 'dateNaissance' | 'lieuNaissance' | 'situationMatrimoniale' | 'pere' | 'statutPere' | 'professionPere' | 'mere' | 'statutMere' | 'professionMere' | 'tuteur' | 'statusTuteur' | 'serie' | 'mention' | 'anneeObtention' | 'origine'>
     ), niveau: (
       { __typename?: 'Niveau' }
       & Pick<Niveau, 'libelle'>
@@ -384,7 +393,7 @@ export type InscriptionQuery = (
       { __typename?: 'Promotion' }
       & Pick<Promotion, 'libelle'>
     ) }
-  )> }
+  ) }
 );
 
 export const InscriptionsListDocument = gql`
@@ -412,6 +421,7 @@ export const InscriptionsListDocument = gql`
       bordereau
     }
     etat
+    date
   }
 }
     `;
@@ -427,14 +437,15 @@ export const InscriptionsListDocument = gql`
     }
   }
 export const InscriptionDocument = gql`
-    query inscription {
-  inscriptions {
+    query inscription($id: String!) {
+  inscription(id: $id) {
     id
     etudiant {
       id
       avatar
       nom
       prenom
+      cin
       mail
       matricule
       tel
@@ -472,7 +483,7 @@ export const InscriptionDocument = gql`
       libelle
     }
     etat
-    createdAt
+    date
   }
 }
     `;

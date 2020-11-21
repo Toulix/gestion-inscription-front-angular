@@ -1,1 +1,111 @@
-<p>enseignements works!</p>
+
+    <!-- <pre> {{ semestre1.value | json }} </pre>  -->
+<div class="semestre_one_container">
+    <form [formGroup]="semestre1">
+     <mat-card>
+        <h1 class="premier_semestre" >
+            Premier Semestre
+        </h1>
+        <div class="premmier_semestre_name_container">
+            <mat-form-field appearance="standard" class="premier_semestre_name">
+                <input matInput placeholder="Nom semestre" formControlName="semestreName" type="text">
+           </mat-form-field>
+        </div>
+      
+
+             <mat-card-header>
+                <mat-card-title>
+                    <button  mat-raised-button class="btn_add_ue" (click)="addUe()">
+                        Ajouter une unité d'enseignement</button>
+                </mat-card-title>
+            </mat-card-header>
+            
+            <mat-card-content>
+                    
+                    <div formArrayName="ues">
+                        <div *ngFor="let ue of ues().controls; let ueIndex=index">
+
+                            <div [formGroupName]="ueIndex">
+                                
+                                <div class="ue_container">
+                                                <div class="ueName_container">
+                                                    <mat-form-field appearance="standard" class="ue_name">
+                                                        <mat-label> UE </mat-label>
+                                                        <input matInput type="text" formControlName="ueName" >
+                                                    </mat-form-field>
+                                                </div>
+                                                
+                                                <div>
+                                                    <button mat-button color="primary"
+                                                        (click)="addUeMatiere(ueIndex)">
+                                                        <mat-icon>add </mat-icon>
+                                                        Ajouter Matiere
+                                                     </button>
+                                                </div>
+                                                
+                                    
+
+                                                <button matTooltip="Supprimer l'UE" class="removeUe" mat-button color="warn" (click)="removeUe(ueIndex)">
+                                                    <mat-icon>remove_circle</mat-icon>
+                                                </button>
+                                                
+                                                <div formArrayName="matieres">
+                                                    <div *ngFor="let matiere of getUeMatieres(ueIndex).controls; let matiereIndex=index">
+                                                        <div [formGroupName]="matiereIndex">
+                                                            <div class="matieres_container">
+                                                                <mat-form-field appearance="standard" class="libelle">
+                                                                    <mat-label> Libelle</mat-label>
+                                                                    <input matInput type="text" formControlName="libelle" >
+                                                                </mat-form-field>
+                                                        
+                                                                <mat-form-field appearance="standard" class="abbreviation">
+                                                                    <mat-label> Abbreviation</mat-label>
+                                                                    <input matInput type="text" formControlName="abbreviation" >
+                                                                </mat-form-field>
+                
+                                                                <mat-form-field appearance="standard" class="et">
+                                                                    <mat-label> ET </mat-label>
+                                                                    <input matInput type="text" formControlName="enseignementTheorique" >
+                                                                </mat-form-field>
+
+                                                                <mat-form-field appearance="standard" class="ed">
+                                                                    <mat-label> ED </mat-label>
+                                                                    <input matInput type="text" formControlName="enseignementDirige" >
+                                                                </mat-form-field>
+                
+                                                                <mat-form-field appearance="standard" class="ep">
+                                                                    <mat-label>  EP </mat-label>
+                                                                    <input matInput type="text" formControlName="enseignementPratique" >
+                                                                </mat-form-field>
+                                                                
+                                                                <mat-form-field appearance="standard" class="credit" >
+                                                                    <mat-label> Credit </mat-label>
+                                                                    <input matInput type="text" formControlName="credit" >
+                                                                </mat-form-field>
+                
+                                                                <mat-form-field appearance="standard" class="poids">
+                                                                    <mat-label> Poids </mat-label>
+                                                                    <input matInput type="text" formControlName="poids" >
+                                                                </mat-form-field>
+
+                                                                <button  matTooltip="Supprimer la matière" mat-button color="warn" (click)="removeUeMatiere(ueIndex,matiereIndex)">
+                                                                    <mat-icon>delete</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div> 
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+            </mat-card-content>
+    </mat-card>
+</form>
+</div>
+
+
+

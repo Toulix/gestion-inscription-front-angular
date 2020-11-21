@@ -69,7 +69,7 @@
             <a [routerLink]="['/inscriptions']" mat-list-item >Inscriptions</a>
             <a mat-list-item >Notes</a>
             <a mat-list-item >Reclamations</a>
-            <a mat-list-item >Enseignement</a>
+            <a [routerLink]="['/enseignements']" mat-list-item >Enseignement</a>
             <a mat-list-item >Enseignant</a>
             <a mat-list-item >Etudiants</a>
             <a mat-list-item >Utilisateurs</a>
@@ -78,12 +78,10 @@
       </mat-sidenav>
       
         <mat-sidenav-content class="sidenav-content">
-            <p>
-               
-              </p>
-              <div class="router_outlet_wrapper">
+        
+              
                 <router-outlet></router-outlet>
-              </div>
+            
             
         </mat-sidenav-content>   
  </mat-sidenav-container>

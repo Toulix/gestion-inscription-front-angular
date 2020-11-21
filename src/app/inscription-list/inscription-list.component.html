@@ -11,10 +11,21 @@
             <div class="inscription_header_info">
                     <mat-card-title style="color:#42a5f5"> {{ inscriptionList.etudiant.nom }} {{ inscriptionList.etudiant.prenom }}</mat-card-title>
                     <mat-card-subtitle>{{ inscriptionList.etudiant.mail }}</mat-card-subtitle>
+                    <p> ID: {{ inscriptionList.id }}</p>
             </div>
             <div>
-                
+                <mat-card-subtitle class="inscription_date"> {{ inscriptionList.date | date:"mediumDate" }}</mat-card-subtitle>
+                   
+                <a [routerLink]="[ '/inscriptions', inscriptionList.id ]" >
+                        <span 
+                            matTooltip="Voir le détails"
+                            matTooltipPosition="after">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </span>
+                    </a>
             </div>
+
+
           </mat-card-header>
     
            <mat-card-content>

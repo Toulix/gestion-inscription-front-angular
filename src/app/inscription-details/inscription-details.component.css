@@ -1,0 +1,45 @@
+.mat_card_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3.5em;
+}
+
+mat-card {
+    width: 700px;
+}
+.fiche_title, .parent_title , .bacc_title, .bordereau_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+    margin-top: 3em;
+    margin-top: 1em !important;
+    font-weight: bold;
+}
+
+span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.avatar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-right: 35px;
+    margin-top: 2.5em;
+}
+
+.info_personnelle,
+.parents,
+.info_bacc,
+.info_bordereau {
+    margin-left: 2em;
+    
+}
+
+.bordereau {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

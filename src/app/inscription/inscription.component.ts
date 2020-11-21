@@ -10,7 +10,6 @@ import { AnneeUniversitaireService } from '../annee-universitaire.service';
 import { ParcoursService } from '../parcours.service';
 import { NiveauService } from '../niveau.service';
 import { Promotion } from 'src/model/promotion.class';
-import { NotifierService } from 'angular-notifier';
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
@@ -73,7 +72,7 @@ export class InscriptionComponent implements OnInit {
                 private anneeUniversitaireService: AnneeUniversitaireService,
                 private parcoursService: ParcoursService,
                 private niveauService: NiveauService,
-                private notifier: NotifierService) {} 
+                ) {} 
 
     ngOnInit(){
     //get all parcours

@@ -1,4 +1,3 @@
-
 type Utilisateur {
   id: ID!
   username: String!
@@ -29,7 +28,6 @@ type Promotion {
   updatedAt: DateTime!
 }
 
-
 scalar DateTime
 
 type Bordereau {
@@ -45,6 +43,7 @@ type Etudiant {
   matricule: String
   avatar: String!
   nom: String!
+  cin: String!
   prenom: String!
   tel: String!
   mail: String!
@@ -163,6 +162,7 @@ type Query {
   users: [Utilisateur!]!
   me: Utilisateur!
   inscriptions: [Inscription!]!
+  inscription(id: String!): Inscription!
   anneeUniversitaire(id: String!): Promotion!
   enseignants: [Enseignant!]!
   scolarites: [Scolarite!]!
@@ -180,11 +180,19 @@ type Mutation {
   addProfileToUser(idProfile: String!, userId: String!): Utilisateur!
   updateInscription(etat: String!, id: String!): Inscription!
   createDefaultEnseignantProfile: Enseignant!
-  editEnseignantProfile(updateEnseignantInput: UpdateEnseignantInput!, enseignantId: String!): Enseignant!
+  editEnseignantProfile(
+    updateEnseignantInput: UpdateEnseignantInput!
+    enseignantId: String!
+  ): Enseignant!
   createDefaultScolariteProfile: Scolarite!
-  editScolariteProfile(updateScolariteInput: UpdateScolariteInput!, scolariteId: String!): Scolarite!
+  editScolariteProfile(
+    updateScolariteInput: UpdateScolariteInput!
+    scolariteId: String!
+  ): Scolarite!
   updateReclamation(reclamationId: ID!, etat: String, note: Float): Reclamation!
-  createReclamation(createReclamationData: CreateReclamationInput!): Reclamation!
+  createReclamation(
+    createReclamationData: CreateReclamationInput!
+  ): Reclamation!
   createNote(CreateNoteInput: CreateNoteInput!): Note!
   updateNote(valeur: Float!, idNote: String!): Note!
 }

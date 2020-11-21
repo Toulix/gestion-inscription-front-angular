@@ -1,4 +1,4 @@
-import { Apollo } from 'apollo-angular';
+
 import { Component, OnInit } from '@angular/core';
 import { InscriptionsListGQL } from 'src/generated/graphql';
 import { Observable } from 'rxjs';
@@ -12,7 +12,6 @@ import  { map } from 'rxjs/operators'
 
 
 export class InscriptionListComponent implements OnInit {
-
 inscriptionsList : Observable<any> 
 
   constructor(private inscriptionsListGQL : InscriptionsListGQL) { }

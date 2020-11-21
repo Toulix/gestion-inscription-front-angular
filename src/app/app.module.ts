@@ -2,6 +2,9 @@ import { AuthService } from './auth.service';
 import { MaterialModule } from './material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LOCALE_ID } from "@angular/core";
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +25,8 @@ import { ReclamationsComponent } from './reclamations/reclamations.component';
 import { DemandeReclamationComponent } from './demande-reclamation/demande-reclamation.component';
 import { InscriptionDetailsComponent } from './inscription-details/inscription-details.component';
 
+
+registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +53,7 @@ import { InscriptionDetailsComponent } from './inscription-details/inscription-d
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, { provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent],
   entryComponents: [CreateUserComponent]
 })
