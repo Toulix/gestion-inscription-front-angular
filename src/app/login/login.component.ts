@@ -1,9 +1,9 @@
+import { NotificationService } from './../shared/notification.service';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { error } from 'console';
-
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router,
+              private notificationService: NotificationService
               ) { }
 
   ngOnInit() {
@@ -34,14 +35,22 @@ export class LoginComponent implements OnInit {
         console.log(result);
         if(result) {
           this.loading = false;
-          this.router.navigate(['/home'])
+          this.loginFormGroup.reset();
+          this.notificationService.succes(
+            ` :: Heureux de vous revoir ${this.authService.currentUser.username} :) `)
         }
+          this.router.navigate(['/home']);
+          
+         
       }, error => {
         this.invalidLogin = true;
+        this.loginFormGroup.reset()
         this.loading = false;
       }
       )
   }
+
+
 
 
 }

@@ -164,6 +164,7 @@ type Query {
   inscriptions: [Inscription!]!
   inscription(id: String!): Inscription!
   anneeUniversitaire(id: String!): Promotion!
+  enseignant(enseignantId: String!): Enseignant!
   enseignants: [Enseignant!]!
   scolarites: [Scolarite!]!
   reclamations: [Reclamation!]!
@@ -177,7 +178,9 @@ type Query {
 type Mutation {
   singIn(password: String!, username: String!): String!
   createUser(createUserInput: CreateUserInput!): Utilisateur!
-  addProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  addEnseignantProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  addScolariteProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  addEtudiantProfileToUser(idProfile: String!, userId: String!): Utilisateur!
   updateInscription(etat: String!, id: String!): Inscription!
   createDefaultEnseignantProfile: Enseignant!
   editEnseignantProfile(
@@ -201,6 +204,7 @@ input CreateUserInput {
   username: String!
   password: String!
   roles: String!
+  profile: ID
 }
 
 input UpdateEnseignantInput {

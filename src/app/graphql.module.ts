@@ -6,8 +6,13 @@ import { HttpHeaders } from '@angular/common/http';
 
 const uri = 'http://localhost:3000/graphql'; // <-- add the URL of the GraphQL server here
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+
+  const token = localStorage.getItem('token');
+  
   return {
-    link: httpLink.create({ uri }),
+    link: httpLink.create({ uri:'http://localhost:3000/graphql' , 
+      headers: new HttpHeaders().set('Authorization', token || '' )
+    }),
     cache: new InMemoryCache(),
   };
 }

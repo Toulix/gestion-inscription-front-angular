@@ -14,7 +14,6 @@ export class CreateUserComponent implements OnInit {
   createUserFormGroup: FormGroup;
   defaultUser: String = '/assets/images/user_two.png'
  
-
   constructor(private fb: FormBuilder,
               public dialogRef: MatDialogRef<CreateUserComponent>) { 
   }
@@ -37,7 +36,5 @@ export class CreateUserComponent implements OnInit {
     this.createUserFormGroup.reset();
     this.dialogRef.close();
   }
-
- 
 
 }

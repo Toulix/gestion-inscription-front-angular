@@ -1,0 +1,57 @@
+
+
+<div class="mat_card_container">
+   
+    <mat-card>
+        <h1 class="fiche_title">Mon Profile</h1>
+                <p class="avatar">
+                    <img src="http://localhost:3000/images/{{(inscription | async)?.etudiant.avatar}}" >
+                </p> 
+          
+        <mat-card-content>
+           
+            <div class="info_personnelle">
+                        <p> <span> Nom </span> : {{ (inscription | async)?.etudiant.nom | uppercase }} </p>
+                        <p> <span> Prenom </span> : {{ (inscription | async)?.etudiant.prenom }}</p>
+                        <p> <span> Email </span> : {{ (inscription | async)?.etudiant.mail }} </p>
+                        <p> <span> Date de naissance </span> : {{ (inscription | async)?.etudiant.dateNaissance | date:"shortDate" }} </p>
+                        <p> <span> Lieu de naissance </span> : {{ (inscription | async)?.etudiant.lieuNaissance }} </p>
+                        <p> <span> Situation Matrimoniale </span> : {{ (inscription | async)?.etudiant.situationMatrimoniale }} </p>
+                        <p> <span> N° CIN </span> : {{ (inscription | async)?.etudiant.cin }} </p>
+            </div>
+            <mat-divider></mat-divider>
+           
+        <div class="parents">
+            <h3 class="parent_title"> PARENTS</h3>
+            <p> <span> NOM PERE </span> : {{ (inscription | async)?.etudiant.pere }} </p>
+            <p> <span> STATUT PERE </span> : {{ (inscription | async)?.etudiant.statutPere }} </p>
+            <p> <span> PROFESSION PERE </span> : {{ (inscription | async)?.etudiant.professionPere }} </p>
+            <p> <span> MERE  </span> : {{ (inscription | async)?.etudiant.mere }} </p>
+            <p> <span> STATUT MERE </span> : {{ (inscription | async)?.etudiant.statutMere }} </p>
+            <p> <span> PROFESSION MERE </span> : {{ (inscription | async)?.etudiant.professionMere }} </p>
+            <p> <span> TUTEUR </span> : {{ (inscription | async)?.etudiant.tuteur }} </p>
+            <p> <span> STATUS TUTEUR </span> : {{ (inscription | async)?.etudiant.statusTuteur }} </p>
+        </div>
+         <mat-divider></mat-divider>
+    
+         <div class="info_bacc">
+            <h3 class="bacc_title"> INFORMATIONS BACC</h3>
+            <p> <span> Série </span> : {{ (inscription | async)?.etudiant.serie }} </p>
+            <p> <span> Année d'obtention </span> : {{ (inscription | async)?.etudiant.anneeObtention | date:"longDate"}} </p>
+            <p> <span> Mention </span> : {{ (inscription | async)?.etudiant.mention }} </p>
+            <p> <span> Etablissement d'origine </span> : {{ (inscription | async)?.etudiant.origine }} </p>
+         </div>
+    
+         <mat-divider></mat-divider>
+         <div class="info_bordereau">
+            <h3 class="bordereau_title"> INFORMATIONS BORDEREAU </h3>
+            <p> <span> Bordéreau N° </span> : {{ (inscription | async)?.bordereau.numBordereau }} </p>
+            <p> <span> Montant </span> : {{ (inscription | async)?.bordereau.montant  }} </p>
+            <p> <span> Date Versement </span> : {{ (inscription | async)?.bordereau.dateVersement | date:"longDate" }}   </p>
+            <p class="bordereau">
+                <img src="http://localhost:3000/images/{{(inscription | async)?.bordereau.bordereau}}" >
+            </p>
+         </div>
+        </mat-card-content>
+    </mat-card>
+    </div>

@@ -24,8 +24,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 const materialComponents = [
+  MatSnackBarModule,
   MatExpansionModule,
   MatTooltipModule,
   MatChipsModule,

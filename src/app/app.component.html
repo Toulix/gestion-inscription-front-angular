@@ -35,7 +35,23 @@
   </button>
   <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
-    <a mat-menu-item [routerLink]="['/profile', authService.currentUser.id]">
+    <a *ngIf="authService.currentUser.roles === 'admin' " 
+        mat-menu-item [routerLink]="['/adminProfile', authService.currentUser.profile]">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+    <a  *ngIf="authService.currentUser.roles === 'enseignant' " 
+        mat-menu-item [routerLink]="['/enseignantProfile', authService.currentUser.profile]">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+    <a  *ngIf="authService.currentUser.roles === 'scolarite' "
+        mat-menu-item [routerLink]="['/scolariteProfile', authService.currentUser.profile]">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+    <a *ngIf="authService.currentUser.roles === 'etudiant' "
+        mat-menu-item [routerLink]="['/etudiantProfile', authService.currentUser.profile]">
       <mat-icon>person</mat-icon>
       <span>Profile</span>
     </a>
@@ -69,10 +85,41 @@
             <a [routerLink]="['/inscriptions']" mat-list-item >Inscriptions</a>
             <a mat-list-item >Notes</a>
             <a mat-list-item >Reclamations</a>
+            <a mat-list-item [matMenuTriggerFor]="enseignementMenu">
+              Enseignement
+            </a>  
             <a [routerLink]="['/enseignements']" mat-list-item >Enseignement</a>
+
             <a mat-list-item >Enseignant</a>
             <a mat-list-item >Etudiants</a>
             <a mat-list-item >Utilisateurs</a>
+
+            <mat-menu #enseignementMenu="matMenu" xPosition="after" style="margin-left: 2em !important;">
+              <button mat-menu-item [matMenuTriggerFor]="subMenuGB">GB</button>
+              <button mat-menu-item [matMenuTriggerFor]="subMenuSR" >SR</button>
+              <button mat-menu-item [matMenuTriggerFor]="subMenuIG">IG</button>
+            </mat-menu>
+            <mat-menu #subMenuGB="matMenu" >
+              <a mat-menu-item [routerLink]="['/L1GB']"> L1</a>
+              <a mat-menu-item [routerLink]="['/L2GB']">L2</a>
+              <a mat-menu-item [routerLink]="['/L3GB']">L3</a>
+              <a mat-menu-item [routerLink]="['/M1GB']">M1</a>
+              <a mat-menu-item [routerLink]="['/M2GB']">M2</a>
+            </mat-menu>
+            <mat-menu #subMenuSR="matMenu" >
+              <a mat-menu-item [routerLink]="['/L1SR']">L1</a>
+              <a mat-menu-item [routerLink]="['/L2SR']">L2</a>
+              <a mat-menu-item [routerLink]="['/L3SR']">L3</a>
+              <a mat-menu-item [routerLink]="['/M1SR']">M1</a>
+              <a mat-menu-item [routerLink]="['/M2SR']">M2</a>
+            </mat-menu>
+            <mat-menu #subMenuIG="matMenu" >
+              <a mat-menu-item [routerLink]="['/L1IG']">L1</a>
+              <a mat-menu-item [routerLink]="['/L2IG']">L2</a>
+              <a mat-menu-item [routerLink]="['/L3IG']">L3</a>
+              <a mat-menu-item [routerLink]="['/M1IG']">M1</a>
+              <a mat-menu-item [routerLink]="['/M2IG']">M2</a>
+            </mat-menu>
 
         </mat-nav-list>
       </mat-sidenav>

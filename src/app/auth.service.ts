@@ -6,7 +6,8 @@ import gql from "graphql-tag";
 import { map, switchMap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-
+import { MeGQL } from 'src/generated/graphql';
+import { Observable } from 'rxjs'
 
 export type user = {
   id: String,
@@ -45,8 +46,11 @@ export class AuthService {
   loading: boolean;
   error: any;
   token: string;
+  user: Observable<any>
+  
 
   constructor(private apollo: Apollo,
+              private meGQL: MeGQL,
               private router: Router) { }
 
   singIn(credentials: { username: string, password: string }) {
@@ -110,7 +114,11 @@ export class AuthService {
     return new JwtHelperService().decodeToken(token);
   }
 
-  get CurrentUserFromGQL() {
-    return '';
-  }
+  get currentUserProfileFromGQL() {
+    this.user = this.meGQL.fetch()
+            .pipe(
+                 map(result => result.data.me)
+            )
+       return this.user;       
+}
 }

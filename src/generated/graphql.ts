@@ -194,6 +194,7 @@ export interface Query {
   inscriptions: Array<Inscription>;
   inscription: Inscription;
   anneeUniversitaire: Promotion;
+  enseignant: Enseignant;
   enseignants: Array<Enseignant>;
   scolarites: Array<Scolarite>;
   reclamations: Array<Reclamation>;
@@ -212,6 +213,11 @@ export interface QueryInscriptionArgs {
 
 export interface QueryAnneeUniversitaireArgs {
   id: Scalars['String'];
+}
+
+
+export interface QueryEnseignantArgs {
+  enseignantId: Scalars['String'];
 }
 
 
@@ -340,6 +346,30 @@ export interface CreateNoteInput {
   anneeUniversitaire: Scalars['ID'];
 }
 
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = (
+  { __typename?: 'Query' }
+  & { me: (
+    { __typename?: 'Utilisateur' }
+    & Pick<Utilisateur, 'id' | 'username' | 'roles' | 'profile'>
+  ) }
+);
+
+export type EnseignantProfileQueryVariables = Exact<{
+  enseignantId: Scalars['String'];
+}>;
+
+
+export type EnseignantProfileQuery = (
+  { __typename?: 'Query' }
+  & { enseignant: (
+    { __typename?: 'Enseignant' }
+    & Pick<Enseignant, 'id' | 'nom' | 'prenom' | 'titre' | 'tel' | 'email' | 'image' | 'sexe'>
+  ) }
+);
+
 export type InscriptionsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -396,6 +426,52 @@ export type InscriptionQuery = (
   ) }
 );
 
+export const MeDocument = gql`
+    query me {
+  me {
+    id
+    username
+    roles
+    profile
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MeGQL extends Apollo.Query<MeQuery, MeQueryVariables> {
+    document = MeDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const EnseignantProfileDocument = gql`
+    query enseignantProfile($enseignantId: String!) {
+  enseignant(enseignantId: $enseignantId) {
+    id
+    nom
+    prenom
+    titre
+    tel
+    email
+    image
+    sexe
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class EnseignantProfileGQL extends Apollo.Query<EnseignantProfileQuery, EnseignantProfileQueryVariables> {
+    document = EnseignantProfileDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const InscriptionsListDocument = gql`
     query inscriptionsList {
   inscriptions {

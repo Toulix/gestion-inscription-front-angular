@@ -1,15 +1,16 @@
 
-    <!-- <pre> {{ semestre1.value | json }} </pre>  -->
+<!-- <pre> {{ semestre1.value | json }} </pre>  -->
 <div class="semestre_one_container">
     <form [formGroup]="semestre1">
      <mat-card>
         <h1 class="premier_semestre" >
-            Premier Semestre
+           {{ semestreTitle }}
         </h1>
         <div class="premmier_semestre_name_container">
             <mat-form-field appearance="standard" class="premier_semestre_name">
                 <input matInput placeholder="Nom semestre" formControlName="semestreName" type="text">
            </mat-form-field>
+          
         </div>
       
 
@@ -33,6 +34,10 @@
                                                         <mat-label> UE </mat-label>
                                                         <input matInput type="text" formControlName="ueName" >
                                                     </mat-form-field>
+                                                    <div>
+                                                        <span> Crédit : {{ getTotalCreditPerUe(ueIndex) }} </span>
+                                                        
+                                                    </div>
                                                 </div>
                                                 
                                                 <div>
@@ -63,34 +68,50 @@
                                                                     <input matInput type="text" formControlName="abbreviation" >
                                                                 </mat-form-field>
                 
-                                                                <mat-form-field appearance="standard" class="et">
+                                                                <mat-form-field appearance="fill" class="et">
                                                                     <mat-label> ET </mat-label>
-                                                                    <input matInput type="text" formControlName="enseignementTheorique" >
+                                                                    <input matInput min="0" type="number" formControlName="enseignementTheorique" >
                                                                 </mat-form-field>
 
-                                                                <mat-form-field appearance="standard" class="ed">
+                                                                <mat-form-field appearance="fill" class="ed">
                                                                     <mat-label> ED </mat-label>
-                                                                    <input matInput type="text" formControlName="enseignementDirige" >
+                                                                    <input matInput min="0" type="number" formControlName="enseignementDirige" >
                                                                 </mat-form-field>
                 
-                                                                <mat-form-field appearance="standard" class="ep">
+                                                                <mat-form-field appearance="fill" class="ep">
                                                                     <mat-label>  EP </mat-label>
-                                                                    <input matInput type="text" formControlName="enseignementPratique" >
+                                                                    <input matInput min="0" type="number" formControlName="enseignementPratique" >
                                                                 </mat-form-field>
                                                                 
-                                                                <mat-form-field appearance="standard" class="credit" >
+                                                                <mat-form-field appearance="fill" class="credit" >
                                                                     <mat-label> Credit </mat-label>
-                                                                    <input matInput type="text" formControlName="credit" >
+                                                                    <input matInput min="0" type="number" formControlName="credit">
                                                                 </mat-form-field>
                 
-                                                                <mat-form-field appearance="standard" class="poids">
+                                                                <mat-form-field appearance="fill" class="poids">
                                                                     <mat-label> Poids </mat-label>
-                                                                    <input matInput type="text" formControlName="poids" >
+                                                                    <input matInput min="0" type="number" formControlName="poids">
                                                                 </mat-form-field>
+
+                                                                <mat-form-field appearance="standard" class="enseignant">
+                                                                    <mat-label> Enseignant </mat-label>
+                                                                    <input matInput type="text" formControlName="enseignant" >
+                                                                </mat-form-field>
+                                                                
+                                                                <button color="primary"  mat-fab matTooltip="Crédit" style="font-size: 23px" (click)="getCreditPerMatiere(ueIndex, matiereIndex)">
+                                                                    <mat-icon [inline]="true">copyright</mat-icon>
+                                                                </button>
+
+                                                                <button color="primary" mat-fab matTooltip="Poids" style="font-size: 20px; margin-left: 0.5em;" (click)="getPoidsPerMatiere(ueIndex, matiereIndex)">
+                                                                    <mat-icon [inline]="true">local_parking</mat-icon>
+                                                                </button>
 
                                                                 <button  matTooltip="Supprimer la matière" mat-button color="warn" (click)="removeUeMatiere(ueIndex,matiereIndex)">
                                                                     <mat-icon>delete</mat-icon>
                                                                 </button>
+                                                                
+                                                            
+
                                                             </div>
                                                         </div>
                                                     </div>

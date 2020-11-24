@@ -29,11 +29,16 @@
 .ep,
 .credit,
 .poids {
-    width: 50px;
+    width: 70px;
     text-align: center;
     padding-left: 1em;
 }
 
+.enseignant {
+    width: 150px;
+    text-align: center;
+    margin-left: 1em;
+}
 
 .libelle,
 .abbreviation {

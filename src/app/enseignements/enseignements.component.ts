@@ -1,9 +1,11 @@
+import { Enseignant } from './../../generated/graphql';
 import { Component, Input, OnInit } from '@angular/core';
 import {  FormGroup,
           FormControl,
           FormBuilder,
           FormArray,
           Validators } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core'
 
 
 @Component({
@@ -14,10 +16,11 @@ import {  FormGroup,
 export class EnseignementsComponent implements OnInit {
   semestre1: FormGroup;
   empForm: FormGroup;
-  //@Input() semestreTitle: string;
+  @Input() semestreTitle: string;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // this.semestre1 = this.fb.group({
@@ -32,6 +35,14 @@ export class EnseignementsComponent implements OnInit {
       semestreName: '',
       ues: this.fb.array([])
     })
+    
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    
+    this.cdRef.detectChanges();
   }
 
     // employees(): FormArray {
@@ -96,8 +107,9 @@ export class EnseignementsComponent implements OnInit {
         enseignementTheorique: [''],
         enseignementDirige: [''],
         enseignementPratique: [''],
-        credit: [''],
-        poids: [''] 
+        credit: 0,
+        poids: [''],
+        enseignant: '',
       })
     }
 
@@ -115,6 +127,72 @@ export class EnseignementsComponent implements OnInit {
 
     removeUeMatiere(ueIndex, matiereIndex) {
       this.getUeMatieres(ueIndex).removeAt(matiereIndex)
+    }
+
+    //getEt() {
+      // const et = this.semestre1.get('ues').value[0].matieres[0].enseignementTheorique;
+      // const ed = this.semestre1.get('ues').value[0].matieres[0].enseignementDirige;
+      // const ep = this.semestre1.get('ues').value[0].matieres[0].enseignementPratique;
+      // console.log("Et :" + et );
+      // console.log("Ed :" + ed );
+      // console.log("Ep :" + ep );
+      // console.log("Enseignement Théorique" 
+      // + this.semestre1.value.ues[0].matieres[0].enseignementTheorique);
+    //}
+
+    getSingleEt(ueIndex,matiereIndex ) {
+      return this.semestre1.value.ues[ueIndex].matieres[matiereIndex].enseignementTheorique;
+    //  return null; // It doesn't show anything
+    }
+    getSingleEd(ueIndex, matiereIndex) {
+      return this.semestre1.value.ues[ueIndex].matieres[matiereIndex].enseignementDirige;
+    }
+    
+    getSingleEp(ueIndex, matiereIndex ) {
+      return this.semestre1.value.ues[ueIndex].matieres[matiereIndex].enseignementPratique;
+    }
+
+    getCredit(ueIndex, matiereIndex) {
+      const credit = this.semestre1.value.ues[ueIndex].matieres[matiereIndex].credit;
+      this.getCreditPerMatiere(ueIndex, matiereIndex);
+      console.log("Crédit: " + credit );
+      return credit;
+    }
+
+    getPoidsPerMatiere(ueIndex, matiereIndex) {
+      const credit = this.semestre1.value.ues[ueIndex].matieres[matiereIndex].credit;
+      const totalCredit = this.getTotalCreditPerUe(ueIndex);
+      let poids = credit / totalCredit;
+      this.getUeMatieres(ueIndex).controls[matiereIndex].get("poids").setValue(poids);
+     // return poids;
+    }
+
+    getMatiere(ueIndex) {
+      const ues =  this.getUeMatieres(ueIndex).controls[0].get("credit").value;
+      console.log(ues);
+    }
+
+    getCreditPerMatiere(ueIndex, matiereIndex) {
+      const creditPerMatiere = (this.getSingleEt(ueIndex,matiereIndex ) +
+             this.getSingleEd(ueIndex, matiereIndex) +
+             this.getSingleEp(ueIndex,matiereIndex))/16;
+      this.getUeMatieres(ueIndex).controls[matiereIndex].get("credit").setValue(creditPerMatiere);
+
+    // return creditPerMatiere;
+     }
+
+    getTotalCreditPerUe(ueIndex) {
+      const arrayMatieres = this.semestre1.value.ues[ueIndex].matieres;
+      // console.log(arrayMatieres);
+      
+      let totalCredit = 0;
+      arrayMatieres.forEach(matiere => {
+        // console.log("Crédit" + matiere.credit);
+        totalCredit = totalCredit + matiere.credit;
+      });
+      // console.log("Total Crédit " + totalCredit);
+      
+      return totalCredit;
     }
 
 
@@ -179,3 +257,22 @@ export class EnseignementsComponent implements OnInit {
   // }
 
 //}
+
+interface Matiere {
+  libelle: string;
+  abbreviation: string;
+  enseignementTheorique: Number;
+  enseignementDirige: Number;
+  enseignementPratique: Number;
+  credit: Number;
+  poids: Number;
+  enseignant: string;
+}
+interface UE {
+  ueName: string;
+  matieres: [Matiere]
+}
+interface Enseignement {
+  semestreName: string;
+  ues : [UE]
+}

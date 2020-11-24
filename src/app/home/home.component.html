@@ -1,3 +1,17 @@
 <div class="home_container">
-    <p> Bienvenue sur le page d'acceuil</p>
+    <p> Bienvenue sur la page d'acceuil</p>
+    <p> Moi : {{ ( user | async )?.username }} </p>
+    <p> Mon roles : {{ ( user | async )?.roles }} </p>
+    <div>
+
+      <p> ID : {{ id | async }} </p>
+    </div>
+
+   <p> Profile {{ ( user | async )?.profile }}  </p> 
 </div>
+
+<!-- me { 
+    id
+  username
+  roles
+} -->

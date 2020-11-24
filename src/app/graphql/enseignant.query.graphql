@@ -1,0 +1,12 @@
+query enseignantProfile($enseignantId: String!) {
+  enseignant(enseignantId: $enseignantId) {
+    id
+    nom
+    prenom
+    titre
+    tel
+    email
+    image
+    sexe
+  }
+}

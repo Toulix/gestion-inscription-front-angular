@@ -24,7 +24,7 @@ export class InscriptionDetailsComponent implements OnInit {
                     .watch({ id: id})
                     .valueChanges
       })
-    ).pipe(
+    ).pipe( 
       map(result => result.data.inscription)
     )
   }
