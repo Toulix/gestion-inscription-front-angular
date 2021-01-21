@@ -1,0 +1,45 @@
+mutation editEnseignantProfile(
+  $nom: String
+  $prenom: String
+  $titre: String
+  $tel: String
+  $email: String
+  $image: String
+  $sexe: String
+  $enseignantId: String!
+) {
+  editEnseignantProfile(
+    updateEnseignantInput: {
+      nom: $nom
+      prenom: $prenom
+      titre: $titre
+      tel: $tel
+      email: $email
+      image: $image
+      sexe: $sexe
+    }
+    enseignantId: $enseignantId
+  ) {
+    id
+    nom
+    prenom
+    titre
+    tel
+    email
+    sexe
+  }
+}
+
+mutation createDefaultEnseignantProfile {
+  createDefaultEnseignantProfile {
+    id
+  }
+}
+
+mutation addEnseignantProfileToUser($idProfile: String!, $userId: String!) {
+  addEnseignantProfileToUser(idProfile: $idProfile, userId: $userId) {
+    username
+    roles
+    profile
+  }
+}

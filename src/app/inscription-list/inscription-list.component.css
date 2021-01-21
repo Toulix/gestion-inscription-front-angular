@@ -4,10 +4,13 @@
     justify-content: center;
     width: 100% !important;
     height: 100% !important;
+    margin-top: 3em;
     flex: 1;
 }
 
-
+.single_inscription_component {
+    margin-left: 1.5em;
+}
 .example-header-image {
     background-size: cover;
   }

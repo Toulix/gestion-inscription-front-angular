@@ -1,0 +1,46 @@
+mutation editScolariteProfile(
+  $nom: String
+  $prenom: String
+  $fonction: String
+  $tel: String
+  $email: String
+  $image: String
+  $sexe: String
+  $scolariteId: String!
+) {
+  editScolariteProfile(
+    updateScolariteInput: {
+      nom: $nom
+      prenom: $prenom
+      fonction: $fonction
+      tel: $tel
+      email: $email
+      image: $image
+      sexe: $sexe
+    }
+    scolariteId: $scolariteId
+  ) {
+    id
+    nom
+    prenom
+    fonction
+    tel
+    email
+    sexe
+  }
+}
+
+#  editScolariteProfile(updateScolariteInput: UpdateScolariteInput!, scolariteId: String!): Scolarite!
+mutation createDefaultScolariteProfile {
+  createDefaultScolariteProfile {
+    id
+  }
+}
+
+mutation addScolariteProfileToUser($idProfile: String!, $userId: String!) {
+  addScolariteProfileToUser(idProfile: $idProfile, userId: $userId) {
+    username
+    roles
+    profile
+  }
+}

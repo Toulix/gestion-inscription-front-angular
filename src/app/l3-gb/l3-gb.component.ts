@@ -9,6 +9,11 @@ export class L3GBComponent implements OnInit {
  
   PremierSemestre = "Premier Semestre";
   DeuxiemeSemestre = "Deuxième Semestre";
+  anneeUniversitaire = "2018-2019"; //this is hardCoded
+  niveau = "L3";
+  parcours = "GB";
+  premierSemestre = "S1"
+  deuxiemeSemestre = "S2"
 
   constructor() { }
 

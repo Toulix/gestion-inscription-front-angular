@@ -29,7 +29,6 @@ import { L2IGComponent } from './l2-ig/l2-ig.component';
 import { L3IGComponent } from './l3-ig/l3-ig.component';
 import { M1IGComponent } from './m1-ig/m1-ig.component';
 import { M2IGComponent } from './m2-ig/m2-ig.component';
-
 import { L1SRComponent } from './l1-sr/l1-sr.component';
 import { L2SRComponent } from './l2-sr/l2-sr.component';
 import { L3SRComponent } from './l3-sr/l3-sr.component';
@@ -44,6 +43,15 @@ import { EtudiantProfileComponent } from './profile/etudiant-profile/etudiant-pr
 import { EnseignantProfileComponent } from './profile/enseignant-profile/enseignant-profile.component';
 import { ScolariteProfileComponent } from './profile/scolarite-profile/scolarite-profile.component';
 import { AdminProfileComponent } from './profile/admin-profile/admin-profile.component';
+import { UpdateEnseignantProfileComponent } from './update-profile/update-enseignant-profile/update-enseignant-profile.component';
+import { UpdateSolariteProfileComponent } from './update-profile/update-solarite-profile/update-solarite-profile.component';
+import { UpdateAdminProfileComponent } from './update-profile/update-admin-profile/update-admin-profile.component';
+import { MatieresComponent } from './matieres/matieres.component';
+import { MatiereItemComponent } from './matiere-item/matiere-item.component';
+import { UeComponent } from './ue/ue.component';
+import { UeItemComponent } from './ue-item/ue-item.component';
+import { DeleteMatiereComponent } from './delete-matiere/delete-matiere.component';
+import { DenyInscriptionComponent } from './deny-inscription/deny-inscription.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -81,6 +89,15 @@ registerLocaleData(localeFr, 'fr');
     EnseignantProfileComponent,
     ScolariteProfileComponent,
     AdminProfileComponent,
+    UpdateEnseignantProfileComponent,
+    UpdateSolariteProfileComponent,
+    UpdateAdminProfileComponent,
+    MatieresComponent,
+    MatiereItemComponent,
+    UeComponent,
+    UeItemComponent,
+    DeleteMatiereComponent,
+    DenyInscriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +111,9 @@ registerLocaleData(localeFr, 'fr');
   ],
   providers: [AuthService, { provide: LOCALE_ID, useValue: "fr-FR" }],
   bootstrap: [AppComponent],
-  entryComponents: [CreateUserComponent]
+  entryComponents: [CreateUserComponent,
+                   UpdateEnseignantProfileComponent, 
+                   DeleteMatiereComponent,
+                   DenyInscriptionComponent]
 })
 export class AppModule { }

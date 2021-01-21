@@ -9,7 +9,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-snack-bar-container.success {
+/* snack-bar-container.success {
   background-color: #4af03e;
   color: #fff;
 }
@@ -17,4 +17,4 @@ snack-bar-container.success {
 snack-bar-container.notification simple-snack-bar {
 font-size: 18px !important;
 font-weight: bold;
-}
+} */

@@ -1,4 +1,4 @@
-<div class="inscription_header">
+<div class="inscription_header" *ngIf="!success">
         <div class="annee_universitaire_header">
             <span class="libelle_promotion">Année universitaire: {{ (foundPromotion | async)?.libelle }}</span>
         </div>
@@ -23,7 +23,7 @@
 
 
 
-<div class="inscription_container">
+<div class="inscription_container" *ngIf="!success">
 <mat-horizontal-stepper linear #stepper>
     <mat-step  label="Information personnel" [stepControl]="studentFormGroup">
         
@@ -364,4 +364,20 @@
         </div>
     </mat-step>
 </mat-horizontal-stepper>
+</div>
+
+<div *ngIf="success" class="success_wrapper">
+    <div class="succes_image_container">
+        <img [src]="succes_image" alt="">
+    </div>
+    <div class="success_notification_container">
+        
+        <div class="success_nofification">
+            
+            <p class="info_center">Nous avons reçu votre inscription !</p>
+            <p class="info_center"> Nous vous envoyerons un mail dès que possible pour vous indiquer le résultat
+            de votre inscription </p>
+            <p class="info_center">L'équipe de la scolarité vous remercie de votre visite !</p>
+        </div>
+    </div>
 </div>

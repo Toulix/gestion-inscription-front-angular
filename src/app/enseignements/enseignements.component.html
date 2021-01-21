@@ -1,24 +1,38 @@
 
-<!-- <pre> {{ semestre1.value | json }} </pre>  -->
-<div class="semestre_one_container">
+<!-- <pre> {{ semestre1.value | json }} </pre> -->
+
+<!-- <div>
+    <ue></ue>
+</div> -->
+ <div class="semestre_one_container">
     <form [formGroup]="semestre1">
-     <mat-card>
+     <mat-card> 
         <h1 class="premier_semestre" >
            {{ semestreTitle }}
         </h1>
         <div class="premmier_semestre_name_container">
             <mat-form-field appearance="standard" class="premier_semestre_name">
-                <input matInput placeholder="Nom semestre" formControlName="semestreName" type="text">
+                <input matInput placeholder="Nom semestre" formControlName="semestreName"  type="text">
            </mat-form-field>
           
         </div>
-      
+
+        <div class="btn_enregistrer_wrapper">
+        <!-- Tokony tsy hirehitra ra misy donnée avy any  -->
+        <!-- Mirehatra raha nisy modification -->
+        <!-- Mirehitra ra ohatra ka nanampy matiere sady valid (efa mety) -->
+            <button [disabled]="semestre1.invalid" mat-raised-button class="btn_create_ues" (click)="createUes(semestre1.value)">
+                Enregistrer
+            </button>
+        </div>
 
              <mat-card-header>
+
                 <mat-card-title>
                     <button  mat-raised-button class="btn_add_ue" (click)="addUe()">
                         Ajouter une unité d'enseignement</button>
                 </mat-card-title>
+               
             </mat-card-header>
             
             <mat-card-content>
@@ -95,17 +109,43 @@
 
                                                                 <mat-form-field appearance="standard" class="enseignant">
                                                                     <mat-label> Enseignant </mat-label>
-                                                                    <input matInput type="text" formControlName="enseignant" >
+                                                                    <mat-select formControlName="enseignant">
+                                                                        <mat-option 
+                                                                            *ngFor="let enseignant of enseignants" 
+                                                                             value="{{enseignant.nom }}">
+                                                                             <div style="padding-bottom: 20px;">
+                                                                                <img src="http://localhost:3000/images/{{enseignant.image}}" style=" margin-top: 2em; width: 30px; height:30px; border-radius: 50px;">
+                                                                                
+                                                                                <span> {{ enseignant.nom }} {{ enseignant.prenom}} </span>
+                                                                     
+                                                                             </div>
+                                                                              
+                                                                        </mat-option>
+                                                                         
+                                                                    </mat-select>
+
                                                                 </mat-form-field>
                                                                 
-                                                                <button color="primary"  mat-fab matTooltip="Crédit" style="font-size: 23px" (click)="getCreditPerMatiere(ueIndex, matiereIndex)">
-                                                                    <mat-icon [inline]="true">copyright</mat-icon>
+                                                                <button  mat-button (click)="getCreditPerMatiere(ueIndex, matiereIndex)">
+                                                                    Crédit
                                                                 </button>
 
-                                                                <button color="primary" mat-fab matTooltip="Poids" style="font-size: 20px; margin-left: 0.5em;" (click)="getPoidsPerMatiere(ueIndex, matiereIndex)">
-                                                                    <mat-icon [inline]="true">local_parking</mat-icon>
+                                                                <button  mat-button (click)="getPoidsPerMatiere(ueIndex, matiereIndex)">
+                                                                    Poids
                                                                 </button>
-
+                                                               <!-- <button color="primary" mat-button (click)="onSaveMatiere(ueIndex, matiereIndex)"> -->
+                
+                                                                <!-- <button 
+                                                                [disabled]="isUeSet ||
+                                                                 getUeMatieres(ueIndex).controls[matiereIndex].untouched
+                                                                || getUeMatieres(ueIndex).controls[matiereIndex].pristine
+                                                                 || getUeMatieres(ueIndex).controls[matiereIndex].invalid
+                                                                "
+                                                                color="primary"
+                                                                mat-button
+                                                                (click)="onSaveUe(semestre1.value)">
+                                                                    <mat-icon>save</mat-icon>
+                                                                </button>  -->
                                                                 <button  matTooltip="Supprimer la matière" mat-button color="warn" (click)="removeUeMatiere(ueIndex,matiereIndex)">
                                                                     <mat-icon>delete</mat-icon>
                                                                 </button>
@@ -127,6 +167,3 @@
     </mat-card>
 </form>
 </div>
-
-
-

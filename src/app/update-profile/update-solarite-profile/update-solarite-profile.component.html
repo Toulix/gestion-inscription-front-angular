@@ -1,0 +1,73 @@
+
+ <!-- (ngSubmit)="onCreateUserToApi()" -->
+ <form [formGroup]="updateScolariteProfileFormGroup" 
+ class="normal-Form">
+<div class="create_user_title">
+
+ <mat-card-title>
+     <ng-container *ngIf="data.image; then thenTemplate; else elseTemplate"></ng-container>
+         <ng-template #thenTemplate>
+             <!-- tsara tsara ito atao dynamique! -->
+             <img [src]="realScolariteAvatar" alt="realScolariteAvatar">
+         </ng-template>
+         <ng-template #elseTemplate>
+             <img [src]="defaultScolariteAvatar" alt="defaultAvatar" >
+         </ng-template>
+         <button mat-button (click)="onClickUpload()">
+             <mat-icon>cloud_upload</mat-icon>
+         </button>
+         <input type="file"
+                 #fileUpload
+                 name="fileUpload"
+                 id="fileUpload" 
+                 style="display: none;"
+                 (change)="handleFileInput($event.target.files)"
+         >
+     <!-- <img [src]="defaultEnseignantAvatar" alt="defaultAvatar"> -->
+ </mat-card-title>
+ <mat-card-title> 
+     Modification d'un profile
+ </mat-card-title>
+
+</div>
+
+<mat-grid-list cols="1" rowHeight="370px">
+ <mat-grid-tile>
+     <div class="controles-container">
+         <mat-form-field>
+             <input formControlName="nom" matInput placeholder="Nom">
+         </mat-form-field>
+         <mat-form-field>
+             <input formControlName="prenom" matInput placeholder="prenom">
+         </mat-form-field>
+         <mat-form-field>
+             <input formControlName="email" matInput placeholder="Email">
+         </mat-form-field>
+         <mat-form-field>
+             <input formControlName="tel" matInput placeholder="N° Tél">
+         </mat-form-field>
+         <mat-form-field>
+             <input formControlName="fonction" matInput placeholder="Fonction">
+         </mat-form-field>
+
+         <div class="sexe">
+            <mat-radio-group required formControlName="sexe" >
+                <mat-radio-button value="Mr">Mr</mat-radio-button>
+                <mat-radio-button value="Mme" class="mme">Mme</mat-radio-button>
+            </mat-radio-group>
+        </div>
+     </div>
+    
+ </mat-grid-tile>
+ 
+</mat-grid-list>
+<div class="button_wrapper" >
+ <button class="btn_update_scolarite_profile"
+         (click)="onUpdateScolariteProfile()"
+         mat-button
+         type="submit">
+     Mettre à jour
+ </button>
+</div>
+
+</form>

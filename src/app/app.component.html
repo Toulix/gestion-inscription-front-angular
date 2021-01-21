@@ -73,12 +73,28 @@
       <mat-sidenav *ngIf="authService.isLoggedIn()" mode="side" [(opened)]="opened"> 
         <mat-nav-list>
             <div class="profile-card">
-                <div class="header">
-                    <h2>Mon Profile</h2>
-                    <h4>exemple@gmail.com</h4>
+                <div *ngIf="authService.currentUser.roles === 'admin'" >
+                    <div class="header">
+                        <h2>{{ (admin | async )?.prenom }}</h2>
+                        <h4>{{ (admin | async )?.email }}</h4>
+                    </div>
+                    <img class="image_avatar" src="http://localhost:3000/images/{{ (admin | async)?.image}}" alt="dog">
                 </div>
-                 <img class="image_avatar" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="dog">
+                <div *ngIf="authService.currentUser.roles === 'enseignant'" >
+                  <div class="header">
+                    <h2>{{ (enseignant | async )?.prenom }}</h2>
+                    <h4>{{ (enseignant | async )?.email }}</h4>
+                  </div>
+                  <img class="image_avatar" src="http://localhost:3000/images/{{ (enseignant | async)?.image}}" alt="dog">
+              </div>
+              <div *ngIf="authService.currentUser.roles === 'scolarite'" >
+                <div class="header">
+                  <h2>{{ (scolarite | async )?.prenom }}</h2>
+                  <h4>{{ (scolarite | async )?.email }}</h4>
+                </div>
+                <img class="image_avatar" src="http://localhost:3000/images/{{ (scolarite | async)?.image}}" alt="dog">
             </div>
+              </div>
             <mat-divider></mat-divider>
             <h2 matSubheader> Administration </h2>
             <a [routerLink]="['/home']" mat-list-item >Acceuil</a>

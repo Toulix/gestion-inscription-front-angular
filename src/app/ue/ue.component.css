@@ -1,0 +1,24 @@
+.semestre_one_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3.5em;
+}
+
+
+
+.premier_semestre,
+.premmier_semestre_name_container,
+.premier_semestre_name
+{
+    text-align: center !important;
+}
+
+.premier_semestre_name {
+    width: 30px;
+}
+
+.btn_add_ue {
+    background-color: #42a5f5;
+    color: white;
+}

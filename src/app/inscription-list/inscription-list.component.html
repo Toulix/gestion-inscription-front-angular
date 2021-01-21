@@ -1,6 +1,6 @@
 <div fxFlex="95%">
 <div class="inscription_wrapper">
-   <div *ngFor="let inscriptionList of inscriptionsList | async">
+   <div *ngFor="let inscriptionList of inscriptionsList | async" class="single_inscription_component">
  
        <mat-card class="single_inscription_info">
 
@@ -32,6 +32,7 @@
               
                
                <mat-chip-list aria-label="Fish selection"> 
+ 
                    <mat-chip>
                     <span> Niveau: {{ inscriptionList.niveau.libelle }} </span>
                     <span> &nbsp; &nbsp; </span> 
@@ -39,12 +40,22 @@
                    <mat-chip>
                     <span> Parcours: {{ inscriptionList.parcours.abbreviation }} </span>
                    </mat-chip>
+                   <!-- <mat-chip >
+                       <span mat-card-avatar 
+                       style="background-image: url('http://localhost:3000/images/{{inscriptionList.etudiant.avatar}}'); 
+                       background-size: cover; width: 30px; height: 30px; margin-left: -10px;">
+                       </span>
+                       <span style="margin-left: 5px;">
+                        {{ inscriptionList.etudiant.prenom }}
+                           <img src="http://localhost:3000/images/{{inscriptionList.etudiant.avatar}}" alt=""> 
+                       </span>
+                   </mat-chip> -->
                    <!-- Ovaina atao tanana -->
-                   
+      
                   
                     <p [ngClass]="{'accepte': inscriptionList.etat === 'Accepté',
                                     'refuse' : inscriptionList.etat === 'Refusé',
-                                    'attente' : inscriptionList.etat === 'En attente'}" 
+                                    'attente' : inscriptionList.etat === 'En cours'}" 
                         class="etat_inscription"
                     >{{ inscriptionList.etat }} 
                     </p>

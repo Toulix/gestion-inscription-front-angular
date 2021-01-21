@@ -8,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class L2GBComponent implements OnInit {
   PremierSemestre = "Premier Semestre";
   DeuxiemeSemestre = "Deuxième Semestre";
+  anneeUniversitaire = "2018-2019"; //this is hardCoded
+  niveau = "L2";
+  parcours = "GB";
+  premierSemestre = "S1"
+  deuxiemeSemestre = "S2"
+
   constructor() { }
 
   ngOnInit(): void {

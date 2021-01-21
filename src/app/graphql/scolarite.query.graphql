@@ -1,0 +1,12 @@
+query scolariteProfile($scolariteId: String!) {
+  scolarite(scolariteId: $scolariteId) {
+    id
+    nom
+    prenom
+    fonction
+    tel
+    email
+    image
+    sexe
+  }
+}

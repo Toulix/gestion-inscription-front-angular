@@ -1,0 +1,26 @@
+.matieres_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.et,
+.ed,
+.ep,
+.credit,
+.poids {
+    width: 70px;
+    text-align: center;
+    padding-left: 1em;
+}
+
+.libelle,
+.abbreviation {
+    text-align: center;
+    padding-left: 1em;
+}
+.enseignant {
+    width: 150px;
+    text-align: center;
+    margin-left: 1em;
+}

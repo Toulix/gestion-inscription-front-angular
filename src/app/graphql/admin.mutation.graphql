@@ -1,0 +1,43 @@
+mutation editAdminProfile(
+  $nom: String
+  $prenom: String
+  $tel: String
+  $email: String
+  $image: String
+  $sexe: String
+  $enseignantId: String!
+) {
+  editAdminProfile(
+    updateAdminInput: {
+      nom: $nom
+      prenom: $prenom
+      tel: $tel
+      email: $email
+      image: $image
+      sexe: $sexe
+    }
+    adminId: $enseignantId
+  ) {
+    id
+    nom
+    prenom
+    tel
+    email
+    image
+    sexe
+  }
+}
+
+mutation createDefaultAdminProfile {
+  createDefaultAdminProfile {
+    id
+  }
+}
+
+mutation addAdminProfileToUser($idProfile: String!, $userId: String!) {
+  addAdminProfileToUser(idProfile: $idProfile, userId: $userId) {
+    username
+    roles
+    profile
+  }
+}

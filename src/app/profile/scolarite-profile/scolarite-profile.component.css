@@ -1,0 +1,51 @@
+.scolarite_profile_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
+}
+
+mat-card {
+    width: 700px;
+}
+
+
+mat-card-content > * {
+    padding-top: 2em;
+}
+
+span {
+    font-weight: bold;
+}
+
+.image_avatar_container  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.id_container, .email_container {
+    text-align: center;
+}
+
+.image_avatar_container {
+    margin-top: 3em !important;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+}
+
+a {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.realAvatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}

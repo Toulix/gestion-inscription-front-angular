@@ -24,7 +24,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 const materialComponents = [
   MatSnackBarModule,
@@ -52,12 +55,20 @@ const materialComponents = [
   MatIconModule,
   MatListModule,
   MatDividerModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCheckboxModule
   
 ]
 
 @NgModule({
-  
+  providers: [
+    {
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        separatorKeyCodes: [ENTER, COMMA]
+      }
+    }
+  ],
   imports: [materialComponents],
   exports : [materialComponents]
 })

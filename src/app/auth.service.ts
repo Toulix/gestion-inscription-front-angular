@@ -1,3 +1,4 @@
+import { ScolariteProfileGQL, EnseignantProfileGQL } from './../generated/graphql';
 
 // import { GET_TOKEN } from './graphql/graphql.login.query';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,7 @@ import gql from "graphql-tag";
 import { map, switchMap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { MeGQL } from 'src/generated/graphql';
+import { AdminProfileGQL, MeGQL } from 'src/generated/graphql';
 import { Observable } from 'rxjs'
 
 export type user = {
@@ -22,56 +23,25 @@ export const GET_TOKEN = gql`
     singIn(password: $password, username: $username)
   }
 `
-
-// const GET_USER = gql`
-//   query users { 
-// 	users {
-//     username
-//     roles
-//   }
-// }
-// `
-// interface User {
-//   username: string,
-//   password: string,
-//   roles: string
-// }
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  //call to the gql mutation language
-  // users: User[]
+  
   loading: boolean;
   error: any;
   token: string;
   user: Observable<any>
   
 
-  constructor(private apollo: Apollo,
+  constructor(
+              private apollo: Apollo,
               private meGQL: MeGQL,
               private router: Router) { }
 
   singIn(credentials: { username: string, password: string }) {
     const { username, password } = credentials;
-    // return this.apollo.map( response => {
-    //   let result = response;
-    //   if(result && resut.access_token) {
-    //     localStorage.setItem('token', result.token);
-    //      return true;
-    //   }
-    //     return false;
-    // })
-    // this.apollo.watchQuery({
-    //   query: GET_USER,
-    // }).valueChanges.subscribe((result: any) => {
-    //   console.log(result);
-    //   this.users = result.data.users;
-    //   this.loading = result.loading;
-    //   this.error = result.error;
-
-    // });
+   
     return this.apollo.mutate({
       mutation: GET_TOKEN,
       variables: {
@@ -114,11 +84,5 @@ export class AuthService {
     return new JwtHelperService().decodeToken(token);
   }
 
-  get currentUserProfileFromGQL() {
-    this.user = this.meGQL.fetch()
-            .pipe(
-                 map(result => result.data.me)
-            )
-       return this.user;       
-}
+ 
 }

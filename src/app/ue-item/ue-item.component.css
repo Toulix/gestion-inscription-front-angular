@@ -1,0 +1,18 @@
+.ue_item_container {
+    border: 1px powderblue solid;
+    position: relative;
+}
+
+.ueName_container {
+    text-align: center !important;
+}
+.ue_name {
+    text-align: center;
+    width: 300px;
+}
+
+.removeUe {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

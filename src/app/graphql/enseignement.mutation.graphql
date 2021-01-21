@@ -1,0 +1,77 @@
+mutation createEnseignement(
+  $libelle: String
+  $abbreviation: String
+  $enseignant: String
+  $semestre: String
+  $ue: String
+  $niveau: String
+  $parcours: String
+  $anneeUniversitaire: String
+  $enseignementTheorique: Int
+  $enseignementDirige: Int
+  $enseignementPratique: Int
+  $credit: Float
+  $poids: Float
+) {
+  createEnseignement(
+    createEnseignementInput: {
+      libelle: $libelle
+      abbreviation: $abbreviation
+      enseignant: $enseignant
+      semestre: $semestre
+      ue: $ue
+      niveau: $niveau
+      parcours: $parcours
+      anneeUniversitaire: $anneeUniversitaire
+      enseignementTheorique: $enseignementTheorique
+      enseignementDirige: $enseignementDirige
+      enseignementPratique: $enseignementPratique
+      credit: $credit
+      poids: $poids
+    }
+  ) {
+    id
+  }
+}
+
+mutation updateEnseignement(
+  $libelle: String
+  $abbreviation: String
+  $enseignant: String
+  $semestre: String
+  $ue: String
+  $niveau: String
+  $parcours: String
+  $anneeUniversitaire: String
+  $enseignementTheorique: Int
+  $enseignementDirige: Int
+  $enseignementPratique: Int
+  $credit: Float
+  $poids: Float
+  $enseignementId: String!
+) {
+  updateEnseignement(
+    updateEnseignementInput: {
+      libelle: $libelle
+      abbreviation: $abbreviation
+      enseignant: $enseignant
+      semestre: $semestre
+      ue: $ue
+      niveau: $niveau
+      parcours: $parcours
+      anneeUniversitaire: $anneeUniversitaire
+      enseignementTheorique: $enseignementTheorique
+      enseignementDirige: $enseignementDirige
+      enseignementPratique: $enseignementPratique
+      credit: $credit
+      poids: $poids
+    }
+    enseignementId: $enseignementId
+  ) {
+    id
+  }
+}
+
+mutation deleteEnseignement($idMatiere: String!) {
+  deleteEnseignement(idMatiere: $idMatiere)
+}

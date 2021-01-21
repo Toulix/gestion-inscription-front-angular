@@ -1,0 +1,61 @@
+<div [formGroup]="matiere">
+    <div class="matieres_container">
+        <mat-form-field appearance="standard" class="libelle">
+            <mat-label> Libelle</mat-label>
+            <input matInput type="text" formControlName="libelle" >
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="abbreviation">
+            <mat-label> Abbreviation</mat-label>
+            <input matInput type="text" formControlName="abbreviation" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="et">
+            <mat-label> ET </mat-label>
+            <input matInput min="0" type="number" formControlName="enseignementTheorique" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="ed">
+            <mat-label> ED </mat-label>
+            <input matInput min="0" type="number" formControlName="enseignementDirige" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="ep">
+            <mat-label>  EP </mat-label>
+            <input matInput min="0" type="number" formControlName="enseignementPratique" >
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" class="credit" >
+            <mat-label> Credit </mat-label>
+            <input matInput min="0" type="number" formControlName="credit">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="poids">
+            <mat-label> Poids </mat-label>
+            <input matInput min="0" type="number" formControlName="poids">
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="enseignant">
+            <!-- <mat-label> Enseignant </mat-label> -->
+            
+            <mat-label> Enseignant </mat-label>
+            <input
+            matInput
+               type="text"
+                formControlName="enseignant"
+                >   
+        </mat-form-field>
+        
+        <button color="primary"  mat-fab matTooltip="Crédit" style="font-size: 23px">
+            <mat-icon [inline]="true">copyright</mat-icon>
+        </button>
+
+        <button color="primary" mat-fab matTooltip="Poids" style="font-size: 20px; margin-left: 0.5em;" >
+            <mat-icon [inline]="true">local_parking</mat-icon>
+        </button>
+
+        <button  matTooltip="Supprimer la matière" mat-button color="warn">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

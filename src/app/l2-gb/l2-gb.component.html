@@ -5,5 +5,20 @@
 
 <div class="parcours_title"> PARCOURS: Génie logiciel et Base de données </div>
 
-<app-enseignements [semestreTitle]="PremierSemestre"></app-enseignements>
- <app-enseignements [semestreTitle]="DeuxiemeSemestre"></app-enseignements>
+<app-enseignements
+    [semestreName] = "premierSemestre"
+    [semestreTitle]="PremierSemestre"
+    [anneeUniversitaire]="anneeUniversitaire"
+    [niveau]="niveau"
+    [parcours]="parcours"
+    > 
+</app-enseignements>
+
+<app-enseignements 
+    [semestreName] = "deuxiemeSemestre"
+    [semestreTitle]="DeuxiemeSemestre"
+    [anneeUniversitaire]="anneeUniversitaire"
+    [niveau]="niveau"
+    [parcours]="parcours"
+    >
+</app-enseignements>

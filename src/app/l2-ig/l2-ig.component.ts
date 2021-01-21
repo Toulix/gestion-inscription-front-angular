@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class L2IGComponent implements OnInit {
   PremierSemestre = "Premier Semestre";
   DeuxiemeSemestre = "Deuxième Semestre";
+  anneeUniversitaire = "2018-2019"; //this is hardCoded
+  niveau = "L2";
+  parcours = "IG";
+  premierSemestre = "S1"
+  deuxiemeSemestre = "S2"
+
+  // semestreName = "S1";
   
   constructor() { }
 

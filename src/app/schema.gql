@@ -109,6 +109,18 @@ type Scolarite {
   updatedAt: DateTime!
 }
 
+type Admin {
+  id: ID!
+  nom: String
+  prenom: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Matiere {
   id: ID!
   libelle: String
@@ -144,11 +156,14 @@ type Note {
 
 type Enseignement {
   id: ID!
-  matiere: Matiere!
-  enseignant: Enseignant!
-  niveau: Niveau!
-  parcours: Parcour!
-  anneeUniversitaire: Promotion!
+  libelle: String
+  abbreviation: String
+  enseignant: String
+  semestre: String
+  ue: String
+  niveau: String
+  parcours: String
+  anneeUniversitaire: String
   enseignementTheorique: Int
   enseignementDirige: Int
   enseignementPratique: Int
@@ -161,17 +176,21 @@ type Enseignement {
 type Query {
   users: [Utilisateur!]!
   me: Utilisateur!
+  etudiants: [Etudiant!]!
   inscriptions: [Inscription!]!
   inscription(id: String!): Inscription!
   anneeUniversitaire(id: String!): Promotion!
   enseignant(enseignantId: String!): Enseignant!
   enseignants: [Enseignant!]!
   scolarites: [Scolarite!]!
+  admins: [Admin!]!
+  admin(adminId: String!): Admin!
+  scolarite(scolariteId: String!): Scolarite!
   reclamations: [Reclamation!]!
   reclamationPerEnseignant: [Reclamation!]!
   notes: [Note!]!
   enseignements: [Enseignement!]!
-  matieresParEnseignant(idEnseignant: String!): Enseignement!
+  matieresParEnseignant(enseignantName: String!): Enseignement!
   matieresOfCurrentEnseignant: Enseignement!
 }
 
@@ -180,7 +199,9 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): Utilisateur!
   addEnseignantProfileToUser(idProfile: String!, userId: String!): Utilisateur!
   addScolariteProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  addAdminProfileToUser(idProfile: String!, userId: String!): Utilisateur!
   addEtudiantProfileToUser(idProfile: String!, userId: String!): Utilisateur!
+  addMatriculeToEtudiant(matricule: String!, id: String!): Etudiant!
   updateInscription(etat: String!, id: String!): Inscription!
   createDefaultEnseignantProfile: Enseignant!
   editEnseignantProfile(
@@ -192,12 +213,27 @@ type Mutation {
     updateScolariteInput: UpdateScolariteInput!
     scolariteId: String!
   ): Scolarite!
+  createDefaultAdminProfile: Admin!
+  editAdminProfile(
+    updateAdminInput: UpdateAdminInput!
+    adminId: String!
+  ): Admin!
   updateReclamation(reclamationId: ID!, etat: String, note: Float): Reclamation!
   createReclamation(
     createReclamationData: CreateReclamationInput!
   ): Reclamation!
   createNote(CreateNoteInput: CreateNoteInput!): Note!
   updateNote(valeur: Float!, idNote: String!): Note!
+  createMatiere(abbreviation: String!, libelle: String!): Matiere!
+  deleteMatiere(idMatiere: String!): Boolean!
+  createEnseignement(
+    createEnseignementInput: CreateEnseignementInput!
+  ): Enseignement!
+  updateEnseignement(
+    updateEnseignementInput: UpdateEnseignementInput!
+    enseignementId: String!
+  ): Enseignement!
+  deleteEnseignement(idMatiere: String!): Boolean!
 }
 
 input CreateUserInput {
@@ -227,6 +263,15 @@ input UpdateScolariteInput {
   fonction: String
 }
 
+input UpdateAdminInput {
+  nom: String
+  prenom: String
+  tel: String
+  email: String
+  image: String
+  sexe: String
+}
+
 input CreateReclamationInput {
   etudiant: ID!
   niveau: ID!
@@ -246,4 +291,36 @@ input CreateNoteInput {
   niveau: ID!
   parcours: ID!
   anneeUniversitaire: ID!
+}
+
+input CreateEnseignementInput {
+  libelle: String
+  abbreviation: String
+  enseignant: String
+  semestre: String
+  ue: String
+  niveau: String
+  parcours: String
+  anneeUniversitaire: String
+  enseignementTheorique: Int
+  enseignementDirige: Int
+  enseignementPratique: Int
+  credit: Float
+  poids: Float
+}
+
+input UpdateEnseignementInput {
+  libelle: String
+  abbreviation: String
+  enseignant: String
+  semestre: String
+  ue: String
+  niveau: String
+  parcours: String
+  anneeUniversitaire: String
+  enseignementTheorique: Int
+  enseignementDirige: Int
+  enseignementPratique: Int
+  credit: Float
+  poids: Float
 }

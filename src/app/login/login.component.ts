@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit {
           this.notificationService.succes(
             ` :: Heureux de vous revoir ${this.authService.currentUser.username} :) `)
         }
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']).then(
+            () => window.location.reload()
+          );
           
          
       }, error => {

@@ -1,57 +1,237 @@
 
-
 <div class="mat_card_container">
-   
-<mat-card>
-    <h1 class="fiche_title">FICHE D'INSCRIPTION</h1>
-            <p class="avatar">
-                <img src="http://localhost:3000/images/{{(inscription | async)?.etudiant.avatar}}" >
-            </p> 
-      
-    <mat-card-content>
-       
-        <div class="info_personnelle">
-                    <p> <span> Nom </span> : {{ (inscription | async)?.etudiant.nom | uppercase }} </p>
-                    <p> <span> Prenom </span> : {{ (inscription | async)?.etudiant.prenom }}</p>
-                    <p> <span> Email </span> : {{ (inscription | async)?.etudiant.mail }} </p>
-                    <p> <span> Date de naissance </span> : {{ (inscription | async)?.etudiant.dateNaissance | date:"shortDate" }} </p>
-                    <p> <span> Lieu de naissance </span> : {{ (inscription | async)?.etudiant.lieuNaissance }} </p>
-                    <p> <span> Situation Matrimoniale </span> : {{ (inscription | async)?.etudiant.situationMatrimoniale }} </p>
-                    <p> <span> N° CIN </span> : {{ (inscription | async)?.etudiant.cin }} </p>
+    <!-- *ngIf="(inscription | async)?.etat === 'En cours'" -->
+    <div *ngIf="(inscription | async)?.etat === 'En cours'">
+        <mat-horizontal-stepper linear #stepper> 
+            <mat-step label="Information d'inscription" >
+                    <mat-card>
+                        <h1 class="fiche_title">FICHE D'INSCRIPTION</h1>
+                                <p class="avatar">
+                                    <img src="http://localhost:3000/images/{{ (inscription | async)?.etudiant.avatar}}" >
+                                </p> 
+                        
+                        <mat-card-content>
+                        
+                        <div class="info_personnelle">
+                                        <p> <span> Nom </span> : {{ (inscription | async)?.etudiant.nom | uppercase }} </p>
+                                        <p> <span> Prenom </span> : {{ (inscription | async)?.etudiant.prenom }}</p>
+                                        <p> <span> Email </span> : {{ (inscription | async)?.etudiant.mail }} </p>
+                                        <p> <span> Date de naissance </span> : {{ (inscription | async)?.etudiant.dateNaissance | date:"shortDate" }} </p>
+                                        <p> <span> Lieu de naissance </span> : {{ (inscription | async)?.etudiant.lieuNaissance }} </p>
+                                        <p> <span> Situation Matrimoniale </span> : {{ (inscription | async)?.etudiant.situationMatrimoniale }} </p>
+                                        <p> <span> N° CIN </span> : {{ (inscription | async)?.etudiant.cin }} </p>
+                        </div>
+                        <mat-divider></mat-divider>
+                        
+                        <div class="parents">
+                            <h3 class="parent_title"> PARENTS</h3>
+                            <p> <span> NOM PERE </span> : {{ (inscription | async)?.etudiant.pere }} </p>
+                            <p> <span> STATUT PERE </span> : {{ (inscription | async)?.etudiant.statutPere }} </p>
+                            <p> <span> PROFESSION PERE </span> : {{ (inscription | async)?.etudiant.professionPere }} </p>
+                            <p> <span> MERE  </span> : {{ (inscription | async)?.etudiant.mere }} </p>
+                            <p> <span> STATUT MERE </span> : {{ (inscription | async)?.etudiant.statutMere }} </p>
+                            <p> <span> PROFESSION MERE </span> : {{ (inscription | async)?.etudiant.professionMere }} </p>
+                            <p> <span> TUTEUR </span> : {{ (inscription | async)?.etudiant.tuteur }} </p>
+                            <p> <span> STATUS TUTEUR </span> : {{ (inscription | async)?.etudiant.statusTuteur }} </p>
+                        </div>
+                        <mat-divider></mat-divider>
+    
+                        <div class="info_bacc">
+                            <h3 class="bacc_title"> INFORMATIONS BACC</h3>
+                            <p> <span> Série </span> : {{ (inscription | async)?.etudiant.serie }} </p>
+                            <p> <span> Année d'obtention </span> : {{ (inscription | async)?.etudiant.anneeObtention | date:"longDate"}} </p>
+                            <p> <span> Mention </span> : {{ (inscription | async)?.etudiant.mention }} </p>
+                            <p> <span> Etablissement d'origine </span> : {{ (inscription | async)?.etudiant.origine }} </p>
+                        </div>
+    
+                        <mat-divider></mat-divider>
+                        <div class="info_bordereau">
+                            <h3 class="bordereau_title"> INFORMATIONS BORDEREAU </h3>
+                            <p> <span> Bordéreau N° </span> : {{ (inscription | async)?.bordereau.numBordereau }} </p>
+                            <p> <span> Montant </span> : {{ (inscription | async)?.bordereau.montant  }} </p>
+                            <p> <span> Date Versement </span> : {{ (inscription | async)?.bordereau.dateVersement | date:"longDate" }}   </p>
+                            <p class="bordereau">
+                                <img src="http://localhost:3000/images/{{(inscription | async)?.bordereau.bordereau}}" >
+                            </p>
+                        </div>
+                        </mat-card-content>
+                        <mat-divider></mat-divider>
+                        <div class="inscription_detail_action">
+                            
+                            <!-- 1h27/ -->
+                            <div>
+                                <p>
+                                    <button 
+                                        mat-button 
+                                        matStepperNext 
+                                        color="primary"
+                                        class="accept_inscription"
+                                        (click)="acceptInscription()">
+                                        Accepter la demande d'inscription
+                                    </button>
+                                </p>
+                                <p>
+                                    <button 
+                                        mat-button 
+                                        color="warn" 
+                                        class="deny_inscription" 
+                                        (click)="denyInscription()">
+                                        Refuser la demande d'inscription
+                                    </button>
+                                </p>
+                                
+                            </div>
+                            
+                        </div>
+                    </mat-card>
+                   
+            </mat-step>
+            <mat-step label="Création d'un profile pour l'étudiant"  [stepControl]="infoStudentProfileFormGroup">
+                <div class="info_bordereau"> 
+                    <div>
+                        <form [formGroup]="infoStudentProfileFormGroup">
+                            <mat-card class="card_bordereau">
+                                <mat-card-content> 
+                                    <div class="card_bordereau_container">
+                                    <!-- numero bordéreau --> 
+                                    <p class="promotion"> - - - - - Année Universitaire {{ (inscription | async)?.anneeUniversitaire.libelle }} - - - - -</p>
+                                            <div class="create_student_profile_header">
+                                                <div class="create_student_profile_header_content">
+                                                    <div class="niveau_parcours">
+                                                        
+                                                            {{ (inscription | async)?.niveau.libelle }} - {{ (inscription | async)?.parcours.abbreviation }}
+                                                        
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <mat-form-field appearance="fill">
+                                                            <mat-label>N° Matricule</mat-label>
+                                                            <input matInput  formControlName="matricule"  required>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div>
+                                                        <img src="http://localhost:3000/images/{{ (inscription | async)?.etudiant.avatar}}" >
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div>
+                                                <div >
+                        
+                                     
+                                                    <p>
+                                                        <span>Nom</span> : {{ (inscription | async)?.etudiant.nom | uppercase }}
+                                                    </p>
+                                                    <p>
+                                                       <span> Prénom </span> : {{ (inscription | async)?.etudiant.prenom }}
+                                                    </p>
+                                                    <p>
+                                                       <span> Né(e) le </span> : {{ (inscription | async)?.etudiant.dateNaissance | date:"longDate" }}
+                                                    </p>
+                                                    <p>
+                                                       <span> CIN  </span> : {{ (inscription | async)?.etudiant.cin }}
+                                                    </p>
+                                                    <p> 
+                                                       <span> Adresse </span> :  {{ (inscription | async)?.etudiant.adresse }}
+                                                    </p>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                       </form>
+                    </div>
+                </div>  
+            </mat-step>
+            <mat-step label="Création de login/mot de passe">
+                
+    <form [formGroup]="createStudentUserFormGroup" class="normal-Form" (ngSubmit)="onCreateStudentUserToApi()">
+        <div class="create_user_title">
+            <mat-card-title> Création de login et mot de passe pour l'étudiant</mat-card-title>
+           <mat-card-subtitle >
+                <p style="font-size: 12px;">
+            (Vous pouvez générer un mot de passe assez facilement) 
+                 </p>
+            </mat-card-subtitle>
         </div>
-        <mat-divider></mat-divider>
+       <div class="btn_create_password">
+            <button mat-button color="primary" (click)="generatePassword()"> Génerer un mot de passe </button>
+        </div>
+        <mat-grid-list cols="1" rowHeight="300px">
+            <mat-grid-tile>
+                <div class="controles-container">
+                    <mat-form-field>
+                        <input formControlName="username" matInput placeholder="Nom d'utilisateur">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="password" matInput placeholder="Mot de passe">
+                    </mat-form-field>
+                    
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <div class="button_wrapper" >
+            <button [disabled]="createStudentUserFormGroup.invalid" class="btn_send_student"  mat-button type="submit" >Envoyer</button>
+        </div>
        
-    <div class="parents">
-        <h3 class="parent_title"> PARENTS</h3>
-        <p> <span> NOM PERE </span> : {{ (inscription | async)?.etudiant.pere }} </p>
-        <p> <span> STATUT PERE </span> : {{ (inscription | async)?.etudiant.statutPere }} </p>
-        <p> <span> PROFESSION PERE </span> : {{ (inscription | async)?.etudiant.professionPere }} </p>
-        <p> <span> MERE  </span> : {{ (inscription | async)?.etudiant.mere }} </p>
-        <p> <span> STATUT MERE </span> : {{ (inscription | async)?.etudiant.statutMere }} </p>
-        <p> <span> PROFESSION MERE </span> : {{ (inscription | async)?.etudiant.professionMere }} </p>
-        <p> <span> TUTEUR </span> : {{ (inscription | async)?.etudiant.tuteur }} </p>
-        <p> <span> STATUS TUTEUR </span> : {{ (inscription | async)?.etudiant.statusTuteur }} </p>
+    </form>
+            </mat-step>
+        </mat-horizontal-stepper>
     </div>
-     <mat-divider></mat-divider>
 
-     <div class="info_bacc">
-        <h3 class="bacc_title"> INFORMATIONS BACC</h3>
-        <p> <span> Série </span> : {{ (inscription | async)?.etudiant.serie }} </p>
-        <p> <span> Année d'obtention </span> : {{ (inscription | async)?.etudiant.anneeObtention | date:"longDate"}} </p>
-        <p> <span> Mention </span> : {{ (inscription | async)?.etudiant.mention }} </p>
-        <p> <span> Etablissement d'origine </span> : {{ (inscription | async)?.etudiant.origine }} </p>
-     </div>
+    <div *ngIf="(inscription | async)?.etat === 'Accepté' || (inscription | async)?.etat === 'Refusé'">
+        <mat-card>
+            <h1 class="fiche_title">FICHE D'INSCRIPTION</h1>
+                    <p class="avatar">
+                        <img src="http://localhost:3000/images/{{ (inscription | async)?.etudiant.avatar}}" >
+                    </p> 
+            <mat-card-content>
+            
+            <div class="info_personnelle">
+                            <p> <span> Nom </span> : {{ (inscription | async)?.etudiant.nom | uppercase }} </p>
+                            <p> <span> Prenom </span> : {{ (inscription | async)?.etudiant.prenom }}</p>
+                            <p> <span> Email </span> : {{ (inscription | async)?.etudiant.mail }} </p>
+                            <p> <span> Date de naissance </span> : {{ (inscription | async)?.etudiant.dateNaissance | date:"shortDate" }} </p>
+                            <p> <span> Lieu de naissance </span> : {{ (inscription | async)?.etudiant.lieuNaissance }} </p>
+                            <p> <span> Situation Matrimoniale </span> : {{ (inscription | async)?.etudiant.situationMatrimoniale }} </p>
+                            <p> <span> N° CIN </span> : {{ (inscription | async)?.etudiant.cin }} </p>
+            </div>
+            <mat-divider></mat-divider>
+            
+            <div class="parents">
+                <h3 class="parent_title"> PARENTS</h3>
+                <p> <span> NOM PERE </span> : {{ (inscription | async)?.etudiant.pere }} </p>
+                <p> <span> STATUT PERE </span> : {{ (inscription | async)?.etudiant.statutPere }} </p>
+                <p> <span> PROFESSION PERE </span> : {{ (inscription | async)?.etudiant.professionPere }} </p>
+                <p> <span> MERE  </span> : {{ (inscription | async)?.etudiant.mere }} </p>
+                <p> <span> STATUT MERE </span> : {{ (inscription | async)?.etudiant.statutMere }} </p>
+                <p> <span> PROFESSION MERE </span> : {{ (inscription | async)?.etudiant.professionMere }} </p>
+                <p> <span> TUTEUR </span> : {{ (inscription | async)?.etudiant.tuteur }} </p>
+                <p> <span> STATUS TUTEUR </span> : {{ (inscription | async)?.etudiant.statusTuteur }} </p>
+            </div>
+            <mat-divider></mat-divider>
 
-     <mat-divider></mat-divider>
-     <div class="info_bordereau">
-        <h3 class="bordereau_title"> INFORMATIONS BORDEREAU </h3>
-        <p> <span> Bordéreau N° </span> : {{ (inscription | async)?.bordereau.numBordereau }} </p>
-        <p> <span> Montant </span> : {{ (inscription | async)?.bordereau.montant  }} </p>
-        <p> <span> Date Versement </span> : {{ (inscription | async)?.bordereau.dateVersement | date:"longDate" }}   </p>
-        <p class="bordereau">
-            <img src="http://localhost:3000/images/{{(inscription | async)?.bordereau.bordereau}}" >
-        </p>
-     </div>
-    </mat-card-content>
-</mat-card>
+            <div class="info_bacc">
+                <h3 class="bacc_title"> INFORMATIONS BACC</h3>
+                <p> <span> Série </span> : {{ (inscription | async)?.etudiant.serie }} </p>
+                <p> <span> Année d'obtention </span> : {{ (inscription | async)?.etudiant.anneeObtention | date:"longDate"}} </p>
+                <p> <span> Mention </span> : {{ (inscription | async)?.etudiant.mention }} </p>
+                <p> <span> Etablissement d'origine </span> : {{ (inscription | async)?.etudiant.origine }} </p>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="info_bordereau">
+                <h3 class="bordereau_title"> INFORMATIONS BORDEREAU </h3>
+                <p> <span> Bordéreau N° </span> : {{ (inscription | async)?.bordereau.numBordereau }} </p>
+                <p> <span> Montant </span> : {{ (inscription | async)?.bordereau.montant  }} </p>
+                <p> <span> Date Versement </span> : {{ (inscription | async)?.bordereau.dateVersement | date:"longDate" }}   </p>
+                <p class="bordereau">
+                    <img src="http://localhost:3000/images/{{(inscription | async)?.bordereau.bordereau}}" >
+                </p>
+            </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+   
 </div>

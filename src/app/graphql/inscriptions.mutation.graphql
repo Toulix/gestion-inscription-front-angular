@@ -1,0 +1,5 @@
+mutation updateInscription($etat: String!, $id: String!) {
+  updateInscription(etat: $etat, id: $id) {
+    etat
+  }
+}

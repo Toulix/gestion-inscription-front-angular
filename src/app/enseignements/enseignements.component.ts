@@ -1,132 +1,268 @@
-import { Enseignant } from './../../generated/graphql';
-import { Component, Input, OnInit } from '@angular/core';
+import { DeleteMatiereComponent } from './../delete-matiere/delete-matiere.component';
+import { NotificationService } from './../shared/notification.service';
+import { EnseignantsGQL, CreateEnseignementGQL } from './../../generated/graphql';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import {  FormGroup,
           FormControl,
           FormBuilder,
           FormArray,
           Validators } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core'
-
-
+import { map, switchMap} from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { UeService } from '../ue.service';
+import { MatDialog, MatDialogConfig} from "@angular/material/dialog";
+interface Enseignant {
+    id: string,
+    nom?: string,
+    prenom?: string,
+    image?: string
+}
 @Component({
   selector: 'app-enseignements',
   templateUrl: './enseignements.component.html',
   styleUrls: ['./enseignements.component.css']
 })
-export class EnseignementsComponent implements OnInit {
+export class EnseignementsComponent implements OnInit, OnDestroy {
   semestre1: FormGroup;
-  empForm: FormGroup;
+  subscription: Subscription;
+  enseignants: Enseignant[];
+  data: any[]
+  isUeSet : boolean = false;
+
+  @Input() semestreName: string;
   @Input() semestreTitle: string;
+  @Input() anneeUniversitaire: string;
+  @Input() niveau: string;
+  @Input() parcours: string;
 
 
-  constructor(private fb: FormBuilder,
-              private cdRef: ChangeDetectorRef) { }
+  constructor(private matDialog: MatDialog, 
+              private ueService : UeService,
+              private notificationService: NotificationService,
+              private enseignantsGQL: EnseignantsGQL,
+              private fb: FormBuilder,
+              private cdRef: ChangeDetectorRef,
+              private createEnseignementGQL: CreateEnseignementGQL) { }
+  
+  
+  createUes(ue) {
+    // console.log(ue);
+   if(this.ues().value.length == 0) {
+     this.notificationService.info("Vous devez ajouter une UE avant d'enregistrer !");
+     return null;
+   }
+     
+    if(this.isUeSet == true ) {
+      this.ueService.updateSingleUePerSemestre(ue)
+        .subscribe(
+          result => console.log(result)
+        )
+        return;
+    }
 
-  ngOnInit(): void {
-    // this.semestre1 = this.fb.group({
-    //   semestreName: ['', Validators.required],
-    //   ues: this.fb.array([])
-    // })
-    // this.empForm = this.fb.group({
-    //   employees: this.fb.array([])
-    // })
+   if(!!this.isUeSet) {
+     console.log("Niditra tato izy");
+     
+      this.ueService.createUesPerSemestre(ue)
+        .subscribe(
+          result => console.log(result)
+        )
+   }
 
-    this.semestre1 = this.fb.group({
-      semestreName: '',
-      ues: this.fb.array([])
-    })
+   if(this.isUeSet == false) {
+    console.log("Niditra tato  @ false izy");
     
+     this.ueService.createUesPerSemestre(ue)
+       .subscribe(
+         result => console.log(result)
+       )
+  }
+    
+  }
+              
+  ngOnInit(): void {
+  this.subscription = this.enseignantsGQL
+                          .watch()
+                          .valueChanges
+                          .pipe(
+                            map(result => result.data.enseignants)
+                          )
+                          .subscribe(
+                            enseignants => {
+                              this.enseignants =  enseignants;
+                            }
+                          )
+
+                
+    this.semestre1 = this.fb.group({
+   //   _id:'',
+      niveau: this.niveau,
+    	parcours: this.parcours,
+    	anneeUniversitaire: this.anneeUniversitaire,
+      semestreName: this.semestreName,
+      ues: this.fb.array([])
+    });
+
+this.ueService.getSingleUePerSemestre(this.niveau,this.parcours,this.anneeUniversitaire, (this.semestreName).toString())
+              .subscribe((result: any) => {
+                if(result == null ) {
+               //   this.isUeSet = false;
+                  return;
+                }
+              else {
+                this.isUeSet = true;
+                  let data = [result];
+                  for (let i = 0; i < data.length; i++) {
+                  //  this.semestre1.get("_id").setValue(data[0]._id);
+                    this.semestre1.get("semestreName").setValue(data[0].semestreName);
+                    this.semestre1.get("niveau").setValue(data[0].niveau);
+                    this.semestre1.get("parcours").setValue(data[0].parcours);
+                    this.semestre1.get("anneeUniversitaire").setValue(data[0].anneeUniversitaire);
+                    for (let j = 0; j < data[i].ues.length; j++) {
+                      this.addUe();
+                      
+                      this.ues().controls[j].get('ueName')
+                      .setValue(data[i].ues[j].ueName);
+                        for (let k = 0; k < data[i].ues[j].matieres.length; k++) {
+                          const matieres = data[i].ues[j].matieres[k];
+                          console.log(" matieres " + matieres);
+                          this.addUeMatiere(j);
+                          this.getUeMatieres(j).controls[k].patchValue(matieres)
+                        }
+                    }
+                }
+              }
+          }
+  )
+      
+  }
+
+  onSaveUe(ue) {
+
+    // this.ueService.updateSingleUePerSemestre(ue)
+    //     .subscribe();
   }
 
   ngAfterViewChecked(): void {
-    //Called after every check of the component's view. Applies to components only.
-    //Add 'implements AfterViewChecked' to the class.
-    
     this.cdRef.detectChanges();
   }
 
-    // employees(): FormArray {
-    //   return this.empForm.get("employees") as FormArray
-    // }
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
+
 
     ues(): FormArray {
       return this.semestre1.get("ues") as FormArray
     }
 
-    // newEmployee(): FormGroup {
-    //   return this.fb.group({
-    //     firstName: '',
-    //     lastName: '',
-    //     skills: this.fb.array([])
-    //   })
-    // }
 
     newUe(): FormGroup {
       return this.fb.group({
-        ueName: '',
+        ueName: ['', Validators.required],
         matieres: this.fb.array([])
       })
     }
 
-    // addEmployee() {
-    //  this.employees().push(this.newEmployee());
-    // }
-
     addUe() {
+      // if(this.isUeSet == false) {
+      //   this.isUeSet = true
+      // }
+      
       this.ues().push(this.newUe());
     }
 
-    // removeEmployee(empIndex) {
-    //   return this.employees().removeAt(empIndex);
-    // }
-
     removeUe(ueIndex) {
+      if(this.semestre1.value.ues.length === 1) {
+        this.isUeSet = false;
+      }
       return this.ues().removeAt(ueIndex);
     }
 
-    // //get
-    // employeeSkills(empIndex): FormArray {
-    //   return this.employees().at(empIndex).get("skills") as FormArray
-    // }
 
     getUeMatieres(ueIndex): FormArray {
       return this.ues().at(ueIndex).get("matieres") as FormArray
     }
 
-    // newSkill(): FormGroup {
-    //   return this.fb.group({
-    //     skill:'',
-    //     exp: ''
-    //   })
-    // }
 
     newMatiere(): FormGroup {
       return this.fb.group({
-        libelle: [''],
-        abbreviation: [''],
-        enseignementTheorique: [''],
-        enseignementDirige: [''],
-        enseignementPratique: [''],
+        libelle: ['', Validators.required],
+        abbreviation: ['', Validators.required],
+        enseignementTheorique: null,
+        enseignementDirige: null,
+        enseignementPratique: null,
         credit: 0,
-        poids: [''],
+        poids: null,
         enseignant: '',
       })
     }
 
-    // addEmployesSkill(empIndex) {
-    //   this.employeeSkills(empIndex).push(this.newSkill());
-    // }
 
     addUeMatiere(ueIndex) {
       this.getUeMatieres(ueIndex).push(this.newMatiere());
+      // console.log( this.getUeMatieres(ueIndex)[0]);
     }
 
-    // removeEmployeeSkill(empIndex, skillIndex) {
-    //   this.employeeSkills(empIndex).removeAt(skillIndex);
-    // }
-
     removeUeMatiere(ueIndex, matiereIndex) {
-      this.getUeMatieres(ueIndex).removeAt(matiereIndex)
+      //dialog êtes-vous sur de vouloir supprimer ?
+    //  console.log(ue);
+      
+      if(this.isUeSet == true) {
+       let dialogRef = this.matDialog.open(DeleteMatiereComponent);
+       dialogRef.afterClosed()
+                .subscribe(result => {
+                  if(result == "true") {
+                    this.getUeMatieres(ueIndex).removeAt(matiereIndex);
+                    this.ueService.updateSingleUePerSemestre(this.semestre1.value)
+                                  .subscribe(
+                                    result => 
+                                    {
+                                      this.notificationService.succes("Suppression réussi")
+                                    })
+                      return null;
+                  }
+                  if(result == "false") {
+                    return null;
+                  }
+                })
+        //update the database
+      }
+      if(this.isUeSet == false) {
+        this.getUeMatieres(ueIndex).removeAt(matiereIndex);
+      //message de confirmation
+    }
+  }
+    //tokony oe update (le bouton manga update)
+    onSaveMatiere(ueIndex, matiereIndex) {
+    const ue = this.semestre1.value.ues[ueIndex].ueName;
+    const semestre = this.semestre1.value.semestreName;
+    // const niveau = this.niveau;
+    // const parcours = this.parcours;
+    // const anneeUniversitaire = this.anneeUniversitaire;
+
+    // const enseignement = {
+    //   ...this.semestre1.value.ues[ueIndex].matieres[matiereIndex]
+    //   , ue, semestre, niveau, parcours, anneeUniversitaire
+    // }
+    
+    // console.log(enseignement);
+    // this.createEnseignementGQL
+    //     .mutate(
+    //       {...enseignement}
+    //     ).pipe(
+    //       map( result => result.data.createEnseignement.id)
+    //     )
+    //     .subscribe(
+          // id =>
+          // this.semestre1.value.ues[ueIndex].matieres[matiereIndex].id = id
+         // )
+        this.notificationService.succes("Matière créer avec succès !")
+    
+    // console.log( this.semestre1.value.ues[ueIndex].matieres[matiereIndex]);
+    // console.log(this.semestre1.value.ues[ueIndex].ueName);
+    
     }
 
     //getEt() {

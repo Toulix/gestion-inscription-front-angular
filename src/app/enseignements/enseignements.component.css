@@ -1,3 +1,5 @@
+
+
 .semestre_one_container {
     display: flex;
     justify-content: center;
@@ -35,7 +37,7 @@
 }
 
 .enseignant {
-    width: 150px;
+    width: 200px;
     text-align: center;
     margin-left: 1em;
 }
@@ -51,7 +53,7 @@
 }
 
 mat-card {
-    width: 1300px;
+    width: 1400px;
 }
 
 .ue_container {
@@ -79,3 +81,17 @@ mat-card {
     justify-content: center;
     align-items: center;
 }
+
+
+.btn_enregistrer_wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.btn_create_ues {
+    background-color: #2cda68;
+    color: white;
+   
+    
+}
+

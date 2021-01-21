@@ -1,0 +1,19 @@
+mutation createUser(
+  $username: String!
+  $password: String!
+  $roles: String!
+  $profile: ID
+) {
+  createUser(
+    createUserInput: {
+      username: $username
+      password: $password
+      roles: $roles
+      profile: $profile
+    }
+  ) {
+    username
+    roles
+    profile
+  }
+}

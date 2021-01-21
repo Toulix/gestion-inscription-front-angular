@@ -18,9 +18,11 @@ import { Promotion } from 'src/model/promotion.class';
 export class InscriptionComponent implements OnInit {
   defaultAvatar: String ='/assets/images/Camera2.png';
   defaultBordereau: String = '/assets/images/Bill2.png';
+  succes_image: String = '/assets/images/icons8_Ok_96px.png'
   avatarImg: File[] = [];
   bordereauImg: File[]=[];
 
+  success: boolean = false;
   // avatar and bordereau from the server
   avatarBordereau : AvatarBordereau;
   avatarFromApi: string;
@@ -182,6 +184,9 @@ export class InscriptionComponent implements OnInit {
       this.inscriptionService.createInscription(this.inscriptionData)
         .subscribe(result => {
           console.log(result);
+          this.success = true
+        },(error) => {
+           console.log("Une erreur s'est produite");
         })
       });
     }

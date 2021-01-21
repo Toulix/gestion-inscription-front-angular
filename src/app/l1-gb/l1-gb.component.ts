@@ -8,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class L1GBComponent implements OnInit {
   PremierSemestre = "Premier Semestre";
   DeuxiemeSemestre = "Deuxième Semestre";
+  
+  anneeUniversitaire = "2018-2019";
+  niveau = "L1";
+  parcours = "GB";
+
+  premierSemestre = "S1";
+ 
+  deuxiemeSemestre = "S2"
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log()
   }
 
 }

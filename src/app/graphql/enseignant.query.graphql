@@ -10,3 +10,12 @@ query enseignantProfile($enseignantId: String!) {
     sexe
   }
 }
+
+query enseignants {
+  enseignants {
+    id
+    nom
+    prenom
+    image
+  }
+}

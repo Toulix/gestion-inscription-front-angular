@@ -13,7 +13,7 @@ import  { map } from 'rxjs/operators'
 
 export class InscriptionListComponent implements OnInit {
 inscriptionsList : Observable<any> 
-
+removable = true;
   constructor(private inscriptionsListGQL : InscriptionsListGQL) { }
 
   ngOnInit(): void {  

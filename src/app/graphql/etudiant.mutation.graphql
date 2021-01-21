@@ -1,0 +1,7 @@
+mutation addMatriculeToEtudiant($matricule: String!, $id: String!) {
+  addMatriculeToEtudiant(matricule: $matricule, id: $id) {
+    nom
+    prenom
+    matricule
+  }
+}

@@ -107,3 +107,36 @@ mat-form-field {
 .selected_parcours {
   margin-top: 15px;
 }
+
+
+.success_nofification {
+  
+  width: 700px;
+  height: 150px;
+  padding-top: 3em;
+  color: white;
+  border-radius: 10px;
+  background-color: #2cda68;
+}
+.success_notification_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5em;
+}
+
+.info_center {
+  text-align: center;
+ font-weight: bold;
+ font-size: 16px ;
+}
+
+.succes_image_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success_wrapper {
+  margin-top: 8em;
+}

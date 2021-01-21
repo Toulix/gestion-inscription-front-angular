@@ -1,0 +1,11 @@
+query adminProfile($adminId: String!) {
+  admin(adminId: $adminId) {
+    id
+    nom
+    prenom
+    tel
+    email
+    image
+    sexe
+  }
+}

@@ -1,0 +1,32 @@
+<!-- We can have multiple ue-Item inside Ue -->
+<div class="semestre_one_container">
+<mat-card>
+    <h1 class="premier_semestre" >
+      Semestre Name
+    </h1>
+    <div class="premmier_semestre_name_container">
+        <mat-form-field appearance="standard" class="premier_semestre_name">
+            <input matInput placeholder="Nom" type="text">
+       </mat-form-field>
+      
+    </div>
+         
+                <button class="btn_add_ue" mat-raised-button class="btn_add_ue" (click)="addUe()">
+                    Ajouter une unité d'enseignement
+                </button>
+       
+        
+        <mat-card-content>
+                
+            <div class="ue_container">
+                    <ue-item *ngFor="let ueItem of arrayOfUe; let i = index" 
+                             [ueItem]="ueItem"
+                             [ueItemIndex]="i"
+                             >
+                    </ue-item>
+            </div>
+           
+    </mat-card-content>                                
+
+</mat-card>
+</div>

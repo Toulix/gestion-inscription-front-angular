@@ -10,10 +10,23 @@ body {
 }
 
 
+snack-bar-container.warn {
+  background-color: #ff2d24;
+  color: #fff;
+}
+
 snack-bar-container.success {
   background-color: #5cb85c;
   color: #fff;
 }
+
+snack-bar-container.info {
+  background-color: #ffa726;
+  color: #fff;
+}
+
+
+
 
 snack-bar-container.notification simple-snack-bar {
 font-size: 18px !important;
